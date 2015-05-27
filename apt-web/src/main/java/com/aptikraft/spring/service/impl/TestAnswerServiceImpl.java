@@ -25,10 +25,6 @@ public class TestAnswerServiceImpl implements TestAnswerService {
 	this.testAnswerDAO = testAnswerDAO;
     }
 
-    public TestAnswerDAO getTestAnswerDAO() {
-	return testAnswerDAO;
-    }
-
     @Override
     @Transactional
     public void addTestAnswer(TestAnswerBO testAnswerBO) {
@@ -70,8 +66,9 @@ public class TestAnswerServiceImpl implements TestAnswerService {
     }
 
     @Override
+    @Transactional
     public List<TestAnswerBO> fetchTestAnswerByUserId(int userId) {
-	return TestAnswerProvider.getTestAnswersFromDOToBO(getTestAnswerDAO().fetchTestAnswerByUserId(userId));
+	return TestAnswerProvider.getTestAnswersFromDOToBO(this.testAnswerDAO.fetchTestAnswerByUserId(userId));
     }
 
 }

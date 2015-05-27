@@ -64,10 +64,10 @@ public class ExamController {
 	int userId = userBO.getId();
 	List<TestAnswerBO> testAnswerList = getTestAnswerService().fetchTestAnswerByUserId(userId);
 	if (testAnswerList != null && !testAnswerList.isEmpty()) {
-	    return ViewNameConstants.INSTRUCTIONS;
+	    return ViewNameConstants.REDIRECT_TO_INDEX;	    
 	} else {
 	    // User is already taken the exam
-	    return ViewNameConstants.REDIRECT_TO_INDEX;
+	    return ViewNameConstants.INSTRUCTIONS;
 	}
     }
 
