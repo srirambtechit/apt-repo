@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- ApplicationContext availablity -->
+	<beans:bean id="applicationContextProvider"
+		class="com.aptikraft.spring.appcontext.ApplicationContextProvider" />
+
+	<!-- MySQL data source -->
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<beans:property name="url" value="jdbc:mysql://localhost:3306/apt" />
+		<beans:property name="username" value="root" />
+		<beans:property name="password" value="root" />
+	</beans:bean>
+
+	<!-- Hibernate 4 SessionFactory Bean definition -->
+	<beans:bean id="hibernate4AnnotatedSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="annotatedClasses">
+			<beans:list>
+				<beans:value>com.aptikraft.spring.model.ExamDO</beans:value>
+				<beans:value>com.aptikraft.spring.model.QuestionDO</beans:value>
+				<beans:value>com.aptikraft.spring.model.TestAnswerDO</beans:value>
+				<beans:value>com.aptikraft.spring.model.UserDO</beans:value>
+				<beans:value>com.aptikraft.spring.model.UserRoleDO</beans:value>
+			</beans:list>
+		</beans:property>
+		<beans:property name="hibernateProperties">
+			<beans:props>
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect
+				</beans:prop>
+				<beans:prop key="hibernate.format_sql">true</beans:prop>
+				<beans:prop key="hibernate.show_sql">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+
+	<!-- Mapping transaction manager with hibernate ORM -->
+	<beans:bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+
+	<!-- Defining transaction manager for entire application -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- Defining DAOImpl objects -->
+	<beans:bean id="examDAO" class="com.aptikraft.spring.dao.impl.ExamDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+
+	<beans:bean id="questionDAO"
+		class="com.aptikraft.spring.dao.impl.QuestionDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+
+	<beans:bean id="testAnswerDAO"
+		class="com.aptikraft.spring.dao.impl.TestAnswerDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+
+	<beans:bean id="userDAO" class="com.aptikraft.spring.dao.impl.UserDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+
+	<beans:bean id="userRoleDAO"
+		class="com.aptikraft.spring.dao.impl.UserRoleDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+
+	<!-- Defining ServiceImpl objects -->
+	<beans:bean id="examService"
+		class="com.aptikraft.spring.service.impl.ExamServiceImpl">
+		<beans:property name="examDAO" ref="examDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="questionService"
+		class="com.aptikraft.spring.service.impl.QuestionServiceImpl">
+		<beans:property name="questionDAO" ref="questionDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="testAnswerService"
+		class="com.aptikraft.spring.service.impl.TestAnswerServiceImpl">
+		<beans:property name="testAnswerDAO" ref="testAnswerDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="userService"
+		class="com.aptikraft.spring.service.impl.UserServiceImpl">
+		<beans:property name="userDAO" ref="userDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="userRoleService"
+		class="com.aptikraft.spring.service.impl.UserRoleServiceImpl">
+		<beans:property name="userRoleDAO" ref="userRoleDAO"></beans:property>
+		<beans:property name="userDAO" ref="userDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="myUserDetailsService"
+		class="com.aptikraft.spring.users.service.MyUserDetailsService">
+		<beans:property name="userDAO" ref="userDAO"></beans:property>
+	</beans:bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="userServicePointCut"
+			expression="execution(* com.aptikraft.spring.users.service.*Service.*(..))" />
+
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="userServicePointCut" />
+	</aop:config>
+
+</beans:beans>

@@ -1,0 +1,2 @@
+1. Service layer should have separate view object in place of model object. - done
+2. cpassword field has to be removed from User.java since it is entity. - done
