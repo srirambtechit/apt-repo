@@ -6,16 +6,16 @@ import com.aptikraft.spring.model.TestAnswerDO;
 
 public interface TestAnswerDAO {
 
-	public void addTestAnswer(TestAnswerDO testAnswerDO);
+    public void addTestAnswer(TestAnswerDO testAnswerDO);
 
-	public void updateTestAnswer(TestAnswerDO testAnswerDO);
+    public void updateTestAnswer(TestAnswerDO testAnswerDO);
 
-	public List<TestAnswerDO> listTestAnswers();
+    public List<TestAnswerDO> listTestAnswers();
 
-	public TestAnswerDO getTestAnswerById(int id);
+    public TestAnswerDO getTestAnswerById(int id);
 
-	public void removeTestAnswer(int id);
-	
-	public List<TestAnswerDO> fetchTestAnswerByUserId(int userId);
+    public void removeTestAnswer(int id);
+
+    public List<TestAnswerDO> fetchTestAnswerByUserId(int userId);
 
 }

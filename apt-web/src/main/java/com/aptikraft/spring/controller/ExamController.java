@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.aptikraft.common.utils.CurrentUser;
 import com.aptikraft.common.utils.ViewNameConstants;
-import com.aptikraft.spring.service.ExamService;
-import com.aptikraft.spring.service.QuestionService;
 import com.aptikraft.spring.service.TestAnswerService;
 import com.aptikraft.spring.service.UserService;
 import com.aptikraft.spring.view.bean.TestAnswerBO;
@@ -64,7 +62,7 @@ public class ExamController {
 	int userId = userBO.getId();
 	List<TestAnswerBO> testAnswerList = getTestAnswerService().fetchTestAnswerByUserId(userId);
 	if (testAnswerList != null && !testAnswerList.isEmpty()) {
-	    return ViewNameConstants.REDIRECT_TO_INDEX;	    
+	    return ViewNameConstants.REDIRECT_TO_INDEX;
 	} else {
 	    // User is already taken the exam
 	    return ViewNameConstants.INSTRUCTIONS;

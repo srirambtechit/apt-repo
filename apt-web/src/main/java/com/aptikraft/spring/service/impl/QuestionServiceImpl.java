@@ -13,40 +13,40 @@ import com.aptikraft.spring.view.bean.QuestionBO;
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
-	private QuestionDAO questionDAO;
+    private QuestionDAO questionDAO;
 
-	public void setQuestionDAO(QuestionDAO questionDAO) {
-		this.questionDAO = questionDAO;
-	}
+    public void setQuestionDAO(QuestionDAO questionDAO) {
+	this.questionDAO = questionDAO;
+    }
 
-	@Override
-	@Transactional
-	public void addQuestion(QuestionBO questionBO) {
-		this.questionDAO.addQuestion(QuestionProvider.getQuestionFromBOToDO(questionBO));
-	}
+    @Override
+    @Transactional
+    public void addQuestion(QuestionBO questionBO) {
+	this.questionDAO.addQuestion(QuestionProvider.getQuestionFromBOToDO(questionBO));
+    }
 
-	@Override
-	@Transactional
-	public void updateQuestion(QuestionBO questionBO) {
-		this.questionDAO.updateQuestion(QuestionProvider.getQuestionFromBOToDO(questionBO));
-	}
+    @Override
+    @Transactional
+    public void updateQuestion(QuestionBO questionBO) {
+	this.questionDAO.updateQuestion(QuestionProvider.getQuestionFromBOToDO(questionBO));
+    }
 
-	@Override
-	@Transactional
-	public List<QuestionBO> listQuestions() {
-		return QuestionProvider.getQuestionsFromDOToBO(this.questionDAO.listQuestions());
-	}
+    @Override
+    @Transactional
+    public List<QuestionBO> listQuestions() {
+	return QuestionProvider.getQuestionsFromDOToBO(this.questionDAO.listQuestions());
+    }
 
-	@Override
-	@Transactional
-	public QuestionBO getQuestionById(int id) {
-		return QuestionProvider.getQuestionFromDOToBO(this.questionDAO.getQuestionById(id));
-	}
+    @Override
+    @Transactional
+    public QuestionBO getQuestionById(int id) {
+	return QuestionProvider.getQuestionFromDOToBO(this.questionDAO.getQuestionById(id));
+    }
 
-	@Override
-	@Transactional
-	public void removeQuestion(int id) {
-		this.questionDAO.removeQuestion(id);
-	}
+    @Override
+    @Transactional
+    public void removeQuestion(int id) {
+	this.questionDAO.removeQuestion(id);
+    }
 
 }

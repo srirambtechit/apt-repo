@@ -15,7 +15,7 @@ public interface TestAnswerService {
     public TestAnswerBO getTestAnswerById(int id);
 
     public void removeTestAnswer(int id);
-    
+
     public List<TestAnswerBO> fetchTestAnswerByUserId(int userId);
 
 }

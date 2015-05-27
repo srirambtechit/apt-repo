@@ -12,64 +12,64 @@ import com.aptikraft.spring.model.TestAnswerDO;
 
 public class TestAnswerDAOImpl implements TestAnswerDAO {
 
-	private static final Logger logger = LoggerFactory.getLogger(TestAnswerDAOImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestAnswerDAOImpl.class);
 
-	private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
-	public void setSessionFactory(SessionFactory sf) {
-		this.sessionFactory = sf;
+    public void setSessionFactory(SessionFactory sf) {
+	this.sessionFactory = sf;
+    }
+
+    @Override
+    public void addTestAnswer(TestAnswerDO testAnswerDO) {
+	Session session = this.sessionFactory.getCurrentSession();
+	session.persist(testAnswerDO);
+	logger.info("TestAnswerDO saved successfully, TestAnswerDO Details=" + testAnswerDO);
+    }
+
+    @Override
+    public void updateTestAnswer(TestAnswerDO testAnswerDO) {
+	Session session = this.sessionFactory.getCurrentSession();
+	session.update(testAnswerDO);
+	logger.info("TestAnswerDO updated successfully, TestAnswerDO DetestAnswerDOils=" + testAnswerDO);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<TestAnswerDO> listTestAnswers() {
+	Session session = this.sessionFactory.getCurrentSession();
+	List<TestAnswerDO> testAnswerDOs = session.createQuery("from TestAnswerDO").list();
+	for (TestAnswerDO testAnswerDO : testAnswerDOs) {
+	    logger.info("TestAnswerDO List::" + testAnswerDO);
 	}
+	return testAnswerDOs;
+    }
 
-	@Override
-	public void addTestAnswer(TestAnswerDO testAnswerDO) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(testAnswerDO);
-		logger.info("TestAnswerDO saved successfully, TestAnswerDO Details=" + testAnswerDO);
-	}
+    @Override
+    public TestAnswerDO getTestAnswerById(int id) {
+	Session session = this.sessionFactory.getCurrentSession();
+	TestAnswerDO testAnswerDO = (TestAnswerDO) session.load(TestAnswerDO.class, new Integer(id));
+	logger.info("TestAnswerDO loaded successfully, TestAnswerDO detestAnswerDOils=" + testAnswerDO);
+	return testAnswerDO;
+    }
 
-	@Override
-	public void updateTestAnswer(TestAnswerDO testAnswerDO) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(testAnswerDO);
-		logger.info("TestAnswerDO updated successfully, TestAnswerDO DetestAnswerDOils=" + testAnswerDO);
+    @Override
+    public void removeTestAnswer(int id) {
+	Session session = this.sessionFactory.getCurrentSession();
+	TestAnswerDO testAnswerDO = (TestAnswerDO) session.load(TestAnswerDO.class, new Integer(id));
+	if (null != testAnswerDO) {
+	    session.delete(testAnswerDO);
 	}
+	logger.info("TestAnswerDO deleted successfully, TestAnswerDO detestAnswerDOils=" + testAnswerDO);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<TestAnswerDO> listTestAnswers() {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<TestAnswerDO> testAnswerDOs = session.createQuery("from TestAnswerDO").list();
-		for (TestAnswerDO testAnswerDO : testAnswerDOs) {
-			logger.info("TestAnswerDO List::" + testAnswerDO);
-		}
-		return testAnswerDOs;
-	}
-
-	@Override
-	public TestAnswerDO getTestAnswerById(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		TestAnswerDO testAnswerDO = (TestAnswerDO) session.load(TestAnswerDO.class, new Integer(id));
-		logger.info("TestAnswerDO loaded successfully, TestAnswerDO detestAnswerDOils=" + testAnswerDO);
-		return testAnswerDO;
-	}
-
-	@Override
-	public void removeTestAnswer(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		TestAnswerDO testAnswerDO = (TestAnswerDO) session.load(TestAnswerDO.class, new Integer(id));
-		if (null != testAnswerDO) {
-			session.delete(testAnswerDO);
-		}
-		logger.info("TestAnswerDO deleted successfully, TestAnswerDO detestAnswerDOils=" + testAnswerDO);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<TestAnswerDO> fetchTestAnswerByUserId(int userId) {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<TestAnswerDO> testAnswerDOs = session.createQuery("from TestAnswerDO where userDO.id = '"+userId+"'").list();
-		logger.info("TestAnswerDO List::" + testAnswerDOs);
-		return testAnswerDOs;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<TestAnswerDO> fetchTestAnswerByUserId(int userId) {
+	Session session = this.sessionFactory.getCurrentSession();
+	List<TestAnswerDO> testAnswerDOs = session.createQuery("from TestAnswerDO where userDO.id = '" + userId + "'").list();
+	logger.info("TestAnswerDO List::" + testAnswerDOs);
+	return testAnswerDOs;
+    }
 
 }

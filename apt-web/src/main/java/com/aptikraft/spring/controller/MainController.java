@@ -19,76 +19,76 @@ import com.aptikraft.common.utils.ViewNameConstants;
 @Controller
 public class MainController {
 
-	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
-	public ModelAndView defaultPage() {
+    @RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
+    public ModelAndView defaultPage() {
 
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security + Hibernate Example");
-		model.addObject("message", "This is default page!");
-		model.setViewName(ViewNameConstants.HELLO);
-		return model;
+	ModelAndView model = new ModelAndView();
+	model.addObject("title", "Spring Security + Hibernate Example");
+	model.addObject("message", "This is default page!");
+	model.setViewName(ViewNameConstants.HELLO);
+	return model;
 
+    }
+
+    @RequestMapping(value = "/admin**", method = RequestMethod.GET)
+    public ModelAndView adminPage() {
+
+	ModelAndView model = new ModelAndView();
+	model.addObject("title", "Spring Security + Hibernate Example");
+	model.addObject("message", "This page is for ROLE_ADMIN only!");
+	model.setViewName(ViewNameConstants.ADMIN);
+
+	return model;
+
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
+
+	ModelAndView model = new ModelAndView();
+	if (error != null && !error.trim().isEmpty()) {
+	    model.addObject("error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
 	}
 
-	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
-	public ModelAndView adminPage() {
+	if (logout != null) {
+	    model.addObject("msg", "You've been logged out successfully.");
+	}
+	model.setViewName(ViewNameConstants.LOGIN);
 
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security + Hibernate Example");
-		model.addObject("message", "This page is for ROLE_ADMIN only!");
-		model.setViewName(ViewNameConstants.ADMIN);
+	return model;
 
-		return model;
+    }
 
+    // customize the error message
+    private String getErrorMessage(HttpServletRequest request, String key) {
+
+	Exception exception = (Exception) request.getSession().getAttribute(key);
+
+	String error = "";
+	if (exception instanceof BadCredentialsException) {
+	    error = "Invalid username and password!";
+	} else if (exception instanceof LockedException) {
+	    error = exception.getMessage();
+	} else {
+	    error = "Invalid username and password!";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
+	return error;
+    }
 
-		ModelAndView model = new ModelAndView();
-		if (error != null && !error.trim().isEmpty()) {
-			model.addObject("error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
-		}
-
-		if (logout != null) {
-			model.addObject("msg", "You've been logged out successfully.");
-		}
-		model.setViewName(ViewNameConstants.LOGIN);
-
-		return model;
-
+    // for 403 access denied page
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    public ModelAndView accesssDenied() {
+	ModelAndView model = new ModelAndView();
+	// check if user is login
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	if (!(auth instanceof AnonymousAuthenticationToken)) {
+	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
+	    model.addObject("username", userDetail.getUsername());
 	}
+	model.setViewName(ViewNameConstants.ACCESS_DENIED);
+	return model;
 
-	// customize the error message
-	private String getErrorMessage(HttpServletRequest request, String key) {
-
-		Exception exception = (Exception) request.getSession().getAttribute(key);
-
-		String error = "";
-		if (exception instanceof BadCredentialsException) {
-			error = "Invalid username and password!";
-		} else if (exception instanceof LockedException) {
-			error = exception.getMessage();
-		} else {
-			error = "Invalid username and password!";
-		}
-
-		return error;
-	}
-
-	// for 403 access denied page
-	@RequestMapping(value = "/403", method = RequestMethod.GET)
-	public ModelAndView accesssDenied() {
-		ModelAndView model = new ModelAndView();
-		// check if user is login
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			model.addObject("username", userDetail.getUsername());
-		}
-		model.setViewName(ViewNameConstants.ACCESS_DENIED);
-		return model;
-
-	}
+    }
 
 }

@@ -19,66 +19,66 @@ import javax.persistence.Table;
 @NamedQuery(name = "ExamDO.findAll", query = "SELECT e FROM ExamDO e")
 public class ExamDO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private int id;
 
-	@Column(nullable = false, length = 10)
-	private String code;
+    @Column(nullable = false, length = 10)
+    private String code;
 
-	@Column(nullable = false, length = 50)
-	private String description;
+    @Column(nullable = false, length = 50)
+    private String description;
 
-	@Column(name = "duration_minute", nullable = false)
-	private int durationMinute;
+    @Column(name = "duration_minute", nullable = false)
+    private int durationMinute;
 
-	@Column(name = "no_of_question", nullable = false)
-	private int noOfQuestion;
+    @Column(name = "no_of_question", nullable = false)
+    private int noOfQuestion;
 
-	public ExamDO() {
-	}
+    public ExamDO() {
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public int getId() {
+	return this.id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+	this.id = id;
+    }
 
-	public String getCode() {
-		return this.code;
-	}
+    public String getCode() {
+	return this.code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setCode(String code) {
+	this.code = code;
+    }
 
-	public String getDescription() {
-		return this.description;
-	}
+    public String getDescription() {
+	return this.description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+	this.description = description;
+    }
 
-	public int getDurationMinute() {
-		return this.durationMinute;
-	}
+    public int getDurationMinute() {
+	return this.durationMinute;
+    }
 
-	public void setDurationMinute(int durationMinute) {
-		this.durationMinute = durationMinute;
-	}
+    public void setDurationMinute(int durationMinute) {
+	this.durationMinute = durationMinute;
+    }
 
-	public int getNoOfQuestion() {
-		return this.noOfQuestion;
-	}
+    public int getNoOfQuestion() {
+	return this.noOfQuestion;
+    }
 
-	public void setNoOfQuestion(int noOfQuestion) {
-		this.noOfQuestion = noOfQuestion;
-	}
+    public void setNoOfQuestion(int noOfQuestion) {
+	this.noOfQuestion = noOfQuestion;
+    }
 
 }

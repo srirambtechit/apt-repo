@@ -6,14 +6,14 @@ import com.aptikraft.spring.model.QuestionDO;
 
 public interface QuestionDAO {
 
-	public void addQuestion(QuestionDO questionDO);
+    public void addQuestion(QuestionDO questionDO);
 
-	public void updateQuestion(QuestionDO questionDO);
+    public void updateQuestion(QuestionDO questionDO);
 
-	public List<QuestionDO> listQuestions();
+    public List<QuestionDO> listQuestions();
 
-	public QuestionDO getQuestionById(int id);
+    public QuestionDO getQuestionById(int id);
 
-	public void removeQuestion(int id);
+    public void removeQuestion(int id);
 
 }

@@ -10,19 +10,19 @@ import com.aptikraft.spring.view.bean.UserBO;
 
 public class CurrentUser {
 
-	public static String getCurrentUsername() {
-		User currentUser = getCurrentUser();
-		return currentUser.getUsername();
-	}
+    public static String getCurrentUsername() {
+	User currentUser = getCurrentUser();
+	return currentUser.getUsername();
+    }
 
-	private static User getCurrentUser() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return (User) auth.getPrincipal();
-	}
+    private static User getCurrentUser() {
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	return (User) auth.getPrincipal();
+    }
 
-	public static UserBO getCurrentUserBO() {
-		UserService userService = ApplicationContextProvider.getBean(UserService.class);
-		return userService.findByUserName(getCurrentUsername());
-	}
+    public static UserBO getCurrentUserBO() {
+	UserService userService = ApplicationContextProvider.getBean(UserService.class);
+	return userService.findByUserName(getCurrentUsername());
+    }
 
 }

@@ -19,40 +19,40 @@ import com.aptikraft.spring.model.UserRoleDO;
 
 public class MyUserDetailsService implements UserDetailsService {
 
-	private UserDAO userDAO;
+    private UserDAO userDAO;
 
-	public void setUserDAO(UserDAO userDAO) {
-		this.userDAO = userDAO;
+    public void setUserDAO(UserDAO userDAO) {
+	this.userDAO = userDAO;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+
+	UserDO userDO = userDAO.findByUserName(username);
+	List<GrantedAuthority> authorities = buildUserAuthority(userDO.getUserRoleDOs());
+
+	return buildUserForAuthentication(userDO, authorities);
+
+    }
+
+    // Converts UserDO to org.springframework.security.core.userdetails.User
+    private User buildUserForAuthentication(UserDO userDO, List<GrantedAuthority> authorities) {
+	return new User(userDO.getUsername(), userDO.getPassword(), userDO.isEnabled(), true, true, true, authorities);
+    }
+
+    private List<GrantedAuthority> buildUserAuthority(List<UserRoleDO> userRoleDOs) {
+
+	Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
+
+	// Build user's authorities
+	for (UserRoleDO userRoleDO : userRoleDOs) {
+	    setAuths.add(new SimpleGrantedAuthority(userRoleDO.getRole()));
 	}
 
-	@Override
-	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+	List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(setAuths);
 
-		UserDO userDO = userDAO.findByUserName(username);
-		List<GrantedAuthority> authorities = buildUserAuthority(userDO.getUserRoleDOs());
-
-		return buildUserForAuthentication(userDO, authorities);
-
-	}
-
-	// Converts UserDO to org.springframework.security.core.userdetails.User
-	private User buildUserForAuthentication(UserDO userDO, List<GrantedAuthority> authorities) {
-		return new User(userDO.getUsername(), userDO.getPassword(), userDO.isEnabled(), true, true, true, authorities);
-	}
-
-	private List<GrantedAuthority> buildUserAuthority(List<UserRoleDO> userRoleDOs) {
-
-		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
-
-		// Build user's authorities
-		for (UserRoleDO userRoleDO : userRoleDOs) {
-			setAuths.add(new SimpleGrantedAuthority(userRoleDO.getRole()));
-		}
-
-		List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(setAuths);
-
-		return result;
-	}
+	return result;
+    }
 
 }

@@ -20,51 +20,51 @@ import javax.persistence.Table;
 @Table(name = "user_role")
 @NamedQuery(name = "UserRoleDO.findAll", query = "SELECT u FROM UserRoleDO u")
 public class UserRoleDO implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_role_id", unique = true, nullable = false)
-	private int userRoleId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_role_id", unique = true, nullable = false)
+    private int userRoleId;
 
-	@Column(name = "ROLE", nullable = false, length = 45)
-	private String role;
+    @Column(name = "ROLE", nullable = false, length = 45)
+    private String role;
 
-	// bi-directional many-to-one association to UserDO
-	@ManyToOne
-	@JoinColumn(name = "username", nullable = false, referencedColumnName = "username")
-	private UserDO userDO;
+    // bi-directional many-to-one association to UserDO
+    @ManyToOne
+    @JoinColumn(name = "username", nullable = false, referencedColumnName = "username")
+    private UserDO userDO;
 
-	public UserRoleDO() {
-	}
+    public UserRoleDO() {
+    }
 
-	public UserRoleDO(UserDO userDO, String role) {
-		this.userDO = userDO;
-		this.role = role;
-	}
+    public UserRoleDO(UserDO userDO, String role) {
+	this.userDO = userDO;
+	this.role = role;
+    }
 
-	public Integer getUserRoleId() {
-		return userRoleId;
-	}
+    public Integer getUserRoleId() {
+	return userRoleId;
+    }
 
-	public void setUserRoleId(Integer userRoleId) {
-		this.userRoleId = userRoleId;
-	}
+    public void setUserRoleId(Integer userRoleId) {
+	this.userRoleId = userRoleId;
+    }
 
-	public UserDO getUserDO() {
-		return userDO;
-	}
+    public UserDO getUserDO() {
+	return userDO;
+    }
 
-	public void setUserDO(UserDO userDO) {
-		this.userDO = userDO;
-	}
+    public void setUserDO(UserDO userDO) {
+	this.userDO = userDO;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public String getRole() {
+	return role;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public void setRole(String role) {
+	this.role = role;
+    }
 
 }

@@ -6,14 +6,14 @@ import com.aptikraft.spring.view.bean.QuestionBO;
 
 public interface QuestionService {
 
-	public void addQuestion(QuestionBO questionBO);
+    public void addQuestion(QuestionBO questionBO);
 
-	public void updateQuestion(QuestionBO questionBO);
+    public void updateQuestion(QuestionBO questionBO);
 
-	public List<QuestionBO> listQuestions();
+    public List<QuestionBO> listQuestions();
 
-	public QuestionBO getQuestionById(int id);
+    public QuestionBO getQuestionById(int id);
 
-	public void removeQuestion(int id);
+    public void removeQuestion(int id);
 
 }
