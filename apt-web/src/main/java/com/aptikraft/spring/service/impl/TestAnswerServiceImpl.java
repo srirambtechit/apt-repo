@@ -19,54 +19,59 @@ import com.aptikraft.spring.view.bean.TestAnswerBO;
 @Service
 public class TestAnswerServiceImpl implements TestAnswerService {
 
-	private TestAnswerDAO testAnswerDAO;
+    private TestAnswerDAO testAnswerDAO;
 
-	public void setTestAnswerDAO(TestAnswerDAO testAnswerDAO) {
-		this.testAnswerDAO = testAnswerDAO;
-	}
+    public void setTestAnswerDAO(TestAnswerDAO testAnswerDAO) {
+	this.testAnswerDAO = testAnswerDAO;
+    }
 
-	@Override
-	@Transactional
-	public void addTestAnswer(TestAnswerBO testAnswerBO) {
-		TestAnswerDO testAnswerDO = TestAnswerProvider.getTestAnswerFromBOToDO(testAnswerBO);
+    public TestAnswerDAO getTestAnswerDAO() {
+	return testAnswerDAO;
+    }
 
-		UserDAO userDAO = ApplicationContextProvider.getBean(UserDAO.class);
-		UserDO userDO = userDAO.getUserById(testAnswerBO.getUser().getId());
+    @Override
+    @Transactional
+    public void addTestAnswer(TestAnswerBO testAnswerBO) {
+	TestAnswerDO testAnswerDO = TestAnswerProvider.getTestAnswerFromBOToDO(testAnswerBO);
 
-		QuestionDAO questionDAO = ApplicationContextProvider.getBean(QuestionDAO.class);
-		QuestionDO questionDO = questionDAO.getQuestionById(testAnswerBO.getQuestion().getId());
-System.out.println(questionDO.getAnswer());
-System.out.println(questionDO.getId());
+	UserDAO userDAO = ApplicationContextProvider.getBean(UserDAO.class);
+	UserDO userDO = userDAO.getUserById(testAnswerBO.getUser().getId());
 
-		testAnswerDO.setQuestionDO(questionDO);
-		testAnswerDO.setUserDO(userDO);
-System.out.println(userDO.getId());
-System.out.println(userDO.getUsername());
-		this.testAnswerDAO.addTestAnswer(testAnswerDO);
-	}
+	QuestionDAO questionDAO = ApplicationContextProvider.getBean(QuestionDAO.class);
+	QuestionDO questionDO = questionDAO.getQuestionById(testAnswerBO.getQuestion().getId());
 
-	@Override
-	@Transactional
-	public void updateTestAnswer(TestAnswerBO testAnswerBO) {
-		this.testAnswerDAO.updateTestAnswer(TestAnswerProvider.getTestAnswerFromBOToDO(testAnswerBO));
-	}
+	testAnswerDO.setQuestionDO(questionDO);
+	testAnswerDO.setUserDO(userDO);
+	this.testAnswerDAO.addTestAnswer(testAnswerDO);
+    }
 
-	@Override
-	@Transactional
-	public List<TestAnswerBO> listTestAnswers() {
-		return TestAnswerProvider.getTestAnswersFromDOToBO(this.testAnswerDAO.listTestAnswers());
-	}
+    @Override
+    @Transactional
+    public void updateTestAnswer(TestAnswerBO testAnswerBO) {
+	this.testAnswerDAO.updateTestAnswer(TestAnswerProvider.getTestAnswerFromBOToDO(testAnswerBO));
+    }
 
-	@Override
-	@Transactional
-	public TestAnswerBO getTestAnswerById(int id) {
-		return TestAnswerProvider.getTestAnswerFromDOToBO(this.testAnswerDAO.getTestAnswerById(id));
-	}
+    @Override
+    @Transactional
+    public List<TestAnswerBO> listTestAnswers() {
+	return TestAnswerProvider.getTestAnswersFromDOToBO(this.testAnswerDAO.listTestAnswers());
+    }
 
-	@Override
-	@Transactional
-	public void removeTestAnswer(int id) {
-		this.testAnswerDAO.removeTestAnswer(id);
-	}
+    @Override
+    @Transactional
+    public TestAnswerBO getTestAnswerById(int id) {
+	return TestAnswerProvider.getTestAnswerFromDOToBO(this.testAnswerDAO.getTestAnswerById(id));
+    }
+
+    @Override
+    @Transactional
+    public void removeTestAnswer(int id) {
+	this.testAnswerDAO.removeTestAnswer(id);
+    }
+
+    @Override
+    public List<TestAnswerBO> fetchTestAnswerByUserId(int userId) {
+	return TestAnswerProvider.getTestAnswersFromDOToBO(getTestAnswerDAO().fetchTestAnswerByUserId(userId));
+    }
 
 }

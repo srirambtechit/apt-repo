@@ -15,5 +15,7 @@ public interface TestAnswerDAO {
 	public TestAnswerDO getTestAnswerById(int id);
 
 	public void removeTestAnswer(int id);
+	
+	public List<TestAnswerDO> fetchTestAnswerByUserId(int userId);
 
 }

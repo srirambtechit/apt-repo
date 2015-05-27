@@ -1,5 +1,6 @@
 package com.aptikraft.spring.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -61,6 +62,15 @@ public class TestAnswerDAOImpl implements TestAnswerDAO {
 			session.delete(testAnswerDO);
 		}
 		logger.info("TestAnswerDO deleted successfully, TestAnswerDO detestAnswerDOils=" + testAnswerDO);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TestAnswerDO> fetchTestAnswerByUserId(int userId) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<TestAnswerDO> testAnswerDOs = session.createQuery("from TestAnswerDO where userDO.id = '"+userId+"'").list();
+		logger.info("TestAnswerDO List::" + testAnswerDOs);
+		return testAnswerDOs;
 	}
 
 }
