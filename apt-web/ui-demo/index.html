@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>jQuery UI Effects - Effect demo</title>
+        <link href="themes/smoothness/jquery-ui.css" rel="stylesheet">
+        <script src="jquery-1.11.3.js"></script>
+        <script src="jquery-ui.js"></script>
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+            .toggler {
+                height  : 200px;
+                position: relative;
+                width   : 500px;
+            }
+            #button {
+                padding        : 0.5em 1em;
+                text-decoration: none;
+            }
+            #effect {
+                height  : 135px;
+                padding : 0.4em;
+                position: relative;
+                width   : 240px;
+            }
+            #effect h3 {
+                margin    : 0;
+                padding   : 0.4em;
+                text-align: center;
+            }
+            .ui-effects-transfer {
+                border: 2px dotted gray;
+            }
+        </style>
+        <script>
+            $ (function () {
+                // run the currently selected effect
+                function runEffect() {
+                    // get effect type from
+                    var selectedEffect = $("#effectTypes").val();
+                    // most effect types need no options passed by default
+                    var options = {};                    
+                    // run the effect
+                    $("#effect").effect(selectedEffect, options, 500, callback);
+                };
+                // callback function to bring a hidden box back
+                function callback() {
+                    setTimeout(function () {
+                        $("#effect").removeAttr("style").hide().fadeIn();
+                    }, 1000);
+                };
+                // set effect from select menu value
+                $("#button").click(function () {
+                    runEffect();
+                    return false;
+                });
+            });
+        </script>
+		<style>
+			
+		</style>
+    </head>
+    <body>
+        
+		<div style="margin: 50px 1px 50px 50px;padding: 50px;border: 1px solid #ddd;display: table;float: left;">
+		
+			<div class="newbox top-left-corner-cell">1</div>
+			<div class="newbox top-mid-edge-cell">2</div>
+			<div class="newbox top-right-corner-cell">3</div>
+			
+			<div style="clear:both;"></div>
+			
+			<div class="newbox left-mid-edge-cell">4</div>
+			<div class="newbox inner-cell">5</div>
+			<div class="newbox right-mid-edge-cell">6</div>
+			
+			<div style="clear:both;"></div>
+			
+			<div class="newbox bottom-left-corner-cell">7</div>
+			<div class="newbox bottom-mid-edge-cell">8</div>
+			<div class="newbox bottom-right-corner-cell">9</div>
+			
+			<div style="clear:both;"></div>
+			
+		</div>
+		
+		<div style="width: 100px; height: 190px; margin: 50px 0px 50px 0px;padding: 50px;border: 1px solid #ddd;display: table;float: left;">
+			
+		</div>
+
+    </body>
+</html>
