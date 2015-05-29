@@ -35,25 +35,35 @@
         <script>
             $ (function () {
                 // run the currently selected effect
-                function runEffect() {
+                function runEffect(divId) {
                     // get effect type from
-                    var selectedEffect = $("#effectTypes").val();
+                    var selectedEffect = "drop"; //drop, fade
                     // most effect types need no options passed by default
                     var options = {};                    
                     // run the effect
-                    $("#effect").effect(selectedEffect, options, 500, callback);
-                };
-                // callback function to bring a hidden box back
-                function callback() {
-                    setTimeout(function () {
-                        $("#effect").removeAttr("style").hide().fadeIn();
-                    }, 1000);
-                };
-                // set effect from select menu value
-                $("#button").click(function () {
-                    runEffect();
+                    $("#" + divId).effect(selectedEffect, options, 300);
+                };                
+                
+				// display popup with form data
+				$(".newbox").click(function () {
+					questionId = $.trim($(this).text());
+					$("#form-panel").show();
+				});
+				
+				// popup button to take action
+				$("#cancelBtn, #okBtn").click(function() {
+					//$("#form-panel").hide();					
+					runEffect("form-panel");
                     return false;
-                });
+				});
+				
+				// on-submit confirmation
+				$("#submitBtn").click(function(){					
+					if(confirm("Are you sure want to submit the test?"))
+						; // proceed for form submittion action
+					else
+						return false;
+				});
             });
         </script>
 		<style>
@@ -64,7 +74,7 @@
 <div style=" width: 1070px; margin: auto; ">
 		<div style="position: relative; margin: 50px 1px 50px 50px;padding: 50px;border: 1px solid #ddd;display: table;float: left;">
 		
-			<div class="newbox top-left-corner-cell">1</div>
+			<div id="fDiv" class="newbox top-left-corner-cell">1</div>
 			<div class="newbox top-mid-edge-cell">2</div>
 			<div class="newbox top-mid-edge-cell">3</div>
 			<div class="newbox top-right-corner-cell">4</div>
@@ -113,15 +123,15 @@
 							<li><input type="radio" name="answer" />The best option will be c</li>
 							<li><input type="radio" name="answer" />The best option will be d</li>
 						</ul>					
-						<input type="button" value="OK" />
-						<input type="button" value="Cancel" />
+						<input id="okBtn" type="button" value="OK" />
+						<input id="cancelBtn" type="button" value="Cancel" />
 					</div>
 				</div>
 			</div>
 			
 		</div>
 		
-		<div style="width: 200px; height: 190px; margin: 50px 0px 0px 0px;padding: 10px;border: 1px solid #ddd;display: table;float: left;">
+		<div style="width: 200px; height: 190px; margin: 50px 0px 0px 0px;padding: 10px;isplay: table;float: left; text-align: right;">
 			<p>Hi Akash</p>
 			<p>120:59</p>
 			
@@ -135,9 +145,7 @@
 			
 			<div style="margin-bottom: 10px;"> <p class="red-indicator"></p>Not attended</div>
 			
-			<div style="margin-bottom: 10px;">
-				<button>Submit Test</button>
-			</div>
+			<div style="margin-bottom: 10px;"> <button id="submitBtn">Submit Test</button> </div>
 		</div>		
 </div>
     </body>
