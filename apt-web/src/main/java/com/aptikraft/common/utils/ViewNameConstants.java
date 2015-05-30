@@ -8,8 +8,6 @@ package com.aptikraft.common.utils;
  */
 public interface ViewNameConstants {
 
-    String INDEX = "index.jsp";
-
     String REDIRECT_TO_INDEX = "redirect:/index.jsp";
 
     String HELLO = "hello";
@@ -26,8 +24,6 @@ public interface ViewNameConstants {
 
     String INSTRUCTIONS = "instructions";
 
-    String QUESTION_ANSWER = "qa";
-    
     String EXAM = "exam";
-    
+
 }

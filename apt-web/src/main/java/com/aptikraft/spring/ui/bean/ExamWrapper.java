@@ -43,4 +43,9 @@ public class ExamWrapper {
 	this.questionList.add(question);
     }
 
+    @Override
+    public String toString() {
+	return "ExamWrapper [noOfQuestion=" + noOfQuestion + ", duration=" + duration + ", questionList=" + questionList + "]";
+    }
+
 }

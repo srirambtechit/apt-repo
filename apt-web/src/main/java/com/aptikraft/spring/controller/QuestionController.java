@@ -11,15 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.aptikraft.common.utils.CurrentUser;
 import com.aptikraft.common.utils.ViewNameConstants;
@@ -27,6 +29,7 @@ import com.aptikraft.spring.service.ExamService;
 import com.aptikraft.spring.service.QuestionService;
 import com.aptikraft.spring.service.TestAnswerService;
 import com.aptikraft.spring.ui.bean.ExamWrapper;
+import com.aptikraft.spring.ui.bean.JsonResponse;
 import com.aptikraft.spring.ui.bean.Question;
 import com.aptikraft.spring.view.bean.ExamBO;
 import com.aptikraft.spring.view.bean.QuestionBO;
@@ -74,8 +77,6 @@ public class QuestionController {
     // returns the ModelAttribute fooListWrapper with the view qa startExamPage
     @RequestMapping(value = { "/startExamPage" }, method = RequestMethod.GET)
     public String getForm(Model model) {
-
-	// return ViewNameConstants.QUESTION_ANSWER;
 	return ViewNameConstants.EXAM;
     }
 
@@ -101,17 +102,24 @@ public class QuestionController {
 	return examWrapper;
     }
 
-    @RequestMapping(value = "/saveAnswer", method = RequestMethod.POST)
-    public String postForm(@ModelAttribute("questionWrapper") ExamWrapper questionWrapper, Model model, HttpServletRequest request, HttpServletResponse response) {
-	for (Question question : questionWrapper.getQuestionList()) {
-	    // Persisting question and answer in DB
-	    TestAnswerBO testAnswerBO = prepareTestAnswerBO(question);
-	    getTestAnswerService().addTestAnswer(testAnswerBO);
+    @RequestMapping(headers = "Content-Type=application/json", value = "/saveAnswerDetailsFromJSON", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody JsonResponse saveAnswerDetailsFromJSON(@RequestBody ExamWrapper examWrapper, HttpServletRequest request, HttpServletResponse response) {
+	System.out.println(examWrapper);
+	JsonResponse jsonResponse = null;
+	if (examWrapper != null && !examWrapper.getQuestionList().isEmpty()) {
+	    for (Question question : examWrapper.getQuestionList()) {
+		// Persisting question and answer in DB
+		TestAnswerBO testAnswerBO = prepareTestAnswerBO(question);
+		getTestAnswerService().addTestAnswer(testAnswerBO);
+	    }
+	    // Automatically logout once exam submitted.
+	    logout(request, response);
+	    jsonResponse = new JsonResponse("OK", "");
+	} else {
+	    jsonResponse = new JsonResponse("Not Found", "Problem Occurred");
 	}
-	// Automatically logout once exam submitted.
-	logout(request, response);
-	// Redirecting to Home page
-	return ViewNameConstants.REDIRECT_TO_INDEX;
+	return jsonResponse;
     }
 
     public void logout(HttpServletRequest request, HttpServletResponse response) {

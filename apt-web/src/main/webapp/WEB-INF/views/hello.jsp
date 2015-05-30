@@ -27,7 +27,6 @@
 			</h2>
 		</c:if>
 
-
 	</sec:authorize>
 </body>
 </html>

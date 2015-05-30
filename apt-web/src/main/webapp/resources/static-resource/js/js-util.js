@@ -1,6 +1,6 @@
 function createQuestionGridPanel(noOfQuestion, target) {
-	
-	qCount = parseInt(noOfQuestion);
+
+	var qCount = parseInt(noOfQuestion);
 
 	// Calculating rows to form Grid Panel
 	var rows = 0;
@@ -9,48 +9,46 @@ function createQuestionGridPanel(noOfQuestion, target) {
 	else
 		rows = parseInt(qCount / 4) + 1;
 
-	//alert('row: ' + rows + ', noOfQuestion : ' + noOfQuestion);
-
-	counter = 1;
+	var counter = 1;
 	// Constructing first row
-	if (qCount!=0 && rows >= 1) {
-		if(qCount!=0) {
+	if (qCount != 0 && rows >= 1) {
+		if (qCount != 0) {
 			newTopLeftCornerCell(counter++).appendTo(target);
 			qCount--;
 		}
-		if(qCount != 0) {
+		if (qCount != 0) {
 			newTopMiddleEdgeCell(counter++).appendTo(target);
 			qCount--;
 		}
-		if(qCount != 0) {
+		if (qCount != 0) {
 			newTopMiddleEdgeCell(counter++).appendTo(target);
 			qCount--;
 		}
-		if(qCount != 0) {
+		if (qCount != 0) {
 			newTopRightCornerCell(counter++).appendTo(target);
 			qCount--;
 		}
 		newClearDiv().appendTo(target);
 	}
 	// Constructing all middle rows
-	if(qCount!=0 && rows >= 2) {
-		
-		midRows = rows - 2; // first and last were taken care separately
-		
-		while(midRows != 0) {
-			if(qCount != 0) {
+	if (qCount != 0 && rows >= 2) {
+
+		var midRows = rows - 2; // first and last were taken care separately
+
+		while (midRows != 0) {
+			if (qCount != 0) {
 				newMiddleLeftEdgeCell(counter++).appendTo(target);
 				qCount--;
 			}
-			if(qCount != 0) {
+			if (qCount != 0) {
 				newInnerCell(counter++).appendTo(target);
 				qCount--;
 			}
-			if(qCount != 0) {
+			if (qCount != 0) {
 				newInnerCell(counter++).appendTo(target);
 				qCount--;
 			}
-			if(qCount != 0) {
+			if (qCount != 0) {
 				newMiddleRightEdgeCell(counter++).appendTo(target);
 				qCount--;
 			}
@@ -59,20 +57,20 @@ function createQuestionGridPanel(noOfQuestion, target) {
 		}
 	}
 	// Constructing last row
-	if(qCount!=0 && rows >= 3) {
-		if(qCount != 0) {
+	if (qCount != 0 && rows >= 3) {
+		if (qCount != 0) {
 			newBottomLeftCornerCell(counter++).appendTo(target);
 			qCount--;
 		}
-		if(qCount != 0) {
+		if (qCount != 0) {
 			newBottomMiddleEdgeCell(counter++).appendTo(target);
 			qCount--;
 		}
-		if(qCount != 0) {
+		if (qCount != 0) {
 			newBottomMiddleEdgeCell(counter++).appendTo(target);
 			qCount--;
 		}
-		if(qCount != 0) {
+		if (qCount != 0) {
 			newBottomRightCornerCell(counter).appendTo(target);
 			qCount--;
 		}
@@ -150,7 +148,8 @@ function newMiddleRightEdgeCell(data) {
 }
 
 function createQuestionPopup(jsonObj, target) {
-	$("<p/>").text(jsonObj.question + "; ans = " + jsonObj.answer).appendTo(target);
+	$("<p/>").text(jsonObj.question + "; ans = " + jsonObj.answer).appendTo(
+			target);
 
 	var ul = $("<ul/>");
 

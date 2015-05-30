@@ -11,11 +11,11 @@
 	<h1>User Registration</h1>
 
 	<c:url var="addAction" value="/user/add"></c:url>
-	
+
 	<c:if test="${not empty error}">
 		<div class="error">${error}</div>
 	</c:if>
-	
+
 	<form:form action="${addAction}" commandName="user">
 		<table>
 			<tr>
