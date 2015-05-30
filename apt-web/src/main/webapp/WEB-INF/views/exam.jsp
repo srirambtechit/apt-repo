@@ -9,12 +9,14 @@
         <link href="resources/themes/smoothness/jquery-ui.css" rel="stylesheet">
         <script src="resources/js/jquery-1.11.3.js"></script>
         <script src="resources/js/jquery-ui.js"></script>
+        <script src="resources/js/jquery.countdown.js"></script>
         <script src="resources/js/js-util.js"></script>
         <link href="resources/css/style.css" rel="stylesheet">
         <script>
             /*----------------------------------------------------------------
 	 - 1. On loading page, fetch question details by ajax GET request
 	 - 2. Generating gird panel with question boxes.
+	 - 3. Registering and starting timer as soon as page loaded completely.
 	 */
             // Global variable for storing and accessing json data
             var globalJsonObj = null;
@@ -32,12 +34,27 @@
                     globalJsonObj = data;
 
                     noOfQuestion  = parseInt(globalJsonObj.noOfQuestion);
+                    
+                    minutesToAdd = parseInt(globalJsonObj.duration);
 
                     // question grid generation
                     createQuestionGridPanel(noOfQuestion, $("#grid-panel"));
 
                     // display popup with form data and register click event handler
                     $("#grid-panel").on("click", ".newbox", newBoxClickHandler);
+                    
+                    // adding countdown timer
+                    var dateObj = new Date();
+                    dateObj.setMinutes(dateObj.getMinutes()+minutesToAdd);
+                    $('#clock').countdown(dateObj).on('update.countdown', function(event) {
+                    	   var $this = $(this).html(event.strftime(''
+                    	     + '<span>%H</span> hr '
+                    	     + '<span>%M</span> min '
+                    	     + '<span>%S</span> sec'));
+                    	 }).on('finish.countdown', function(event){
+                    		 // automatically save details when given time elapsed.
+                    		 saveDetailsMethod();
+                    	 });
                 },
                 type      : 'GET',
                 url       : 'getExamDetailsInJSON'
@@ -80,42 +97,36 @@
                 // on-submit confirmation
 
                 function saveDetailsMethod() {
-                    if (confirm("Are you sure want to submit the test?")) {
-                        var form = $(this);
-                        $("input[name='examWrapper']").value(JSON.stringify(globalJsonObj));
-                        form.submit();
-                    } else {
-                        return false;
-                    }
+                	$.ajax({
+                        async      : false,
+                        cache      : false,
+                        contentType: "application/json; charset=utf-8",
+                        data       : JSON.stringify(globalJsonObj),
+                        error      : function () {
+                            // failed request; give feedback to user
+                            $('#ajax-panel').html(JSON.stringify(globalJsonObj) + '<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
+                        },
+                        processData: false,
+                        success    : function (data) {
+                            if (data.status == 'OK') {
+                                alert('Congratulation!!! You have successfully completed exam.');
+                                // similar behavior as an HTTP redirect
+                                window.location.replace("index.jsp");
+
+                                // similar behavior as clicking on a link
+                                // window.location.href = "http://stackoverflow.com";
+                            } else {
+                                $('#ajax-panel').html('<p class="error"><strong>Oops!</strong> Failed : ' + data.status + ', ' + data.errorMessage + '</p>');
+                            }
+                        },
+                        type       : 'POST',
+                        url        : 'saveAnswerDetailsFromJSON?${_csrf.parameterName}=${_csrf.token}'
+                    });
                 }
 
                 $("#submitBtn").click(function () {
                     if (confirm("Are you sure want to submit the test?")) {
-                        $.ajax({
-                            async      : false,
-                            cache      : false,
-                            contentType: "application/json; charset=utf-8",
-                            data       : JSON.stringify(globalJsonObj),
-                            error      : function () {
-                                // failed request; give feedback to user
-                                $('#ajax-panel').html(JSON.stringify(globalJsonObj) + '<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
-                            },
-                            processData: false,
-                            success    : function (data) {
-                                if (data.status == 'OK') {
-                                    alert('Congratulation!!! You have successfully completed exam.');
-                                    // similar behavior as an HTTP redirect
-                                    window.location.replace("index.jsp");
-
-                                    // similar behavior as clicking on a link
-                                    // window.location.href = "http://stackoverflow.com";
-                                } else {
-                                    $('#ajax-panel').html('<p class="error"><strong>Oops!</strong> Failed : ' + data.status + ', ' + data.errorMessage + '</p>');
-                                }
-                            },
-                            type       : 'POST',
-                            url        : 'saveAnswerDetailsFromJSON?${_csrf.parameterName}=${_csrf.token}'
-                        });
+                    	saveDetailsMethod();
                     } else {
                         return false;
                     }
@@ -178,8 +189,8 @@
                 style="width: 200px; height: 190px; margin: 50px 0px 0px 0px; padding: 10px;
                 isplay: table; float: left; text-align: right;">
                 <p>Hi Akash</p>
-                <p>120:59</p>
-                <div style="margin-bottom: 10px;">
+                <div id="clock"></div>
+                <div style="margin-top: 10px;margin-bottom: 10px;">
                     <span class="default-indicator"></span>Yet to attend
                 </div>
                 <div style="margin-bottom: 10px;">
