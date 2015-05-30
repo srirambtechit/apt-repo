@@ -27,5 +27,7 @@ public interface ViewNameConstants {
     String INSTRUCTIONS = "instructions";
 
     String QUESTION_ANSWER = "qa";
-
+    
+    String EXAM = "exam";
+    
 }

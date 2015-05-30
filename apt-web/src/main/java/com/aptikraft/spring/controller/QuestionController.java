@@ -93,8 +93,8 @@ public class QuestionController {
 
 	model.addAttribute("questionWrapper", questionWrapper);
 	model.addAttribute("choiceMap", choiceMap);
-
-	return ViewNameConstants.QUESTION_ANSWER;
+//	return ViewNameConstants.QUESTION_ANSWER;
+	return ViewNameConstants.EXAM;
     }
 
     @RequestMapping(value = "/saveAnswer", method = RequestMethod.POST)
