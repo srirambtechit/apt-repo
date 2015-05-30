@@ -1,23 +1,57 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page session="true"%>
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>jQuery UI Effects - Effect demo</title>
+        <title>Question - Answer Page</title>
         <link href="resources/themes/smoothness/jquery-ui.css" rel="stylesheet">
         <script src="resources/js/jquery-1.11.3.js"></script>
         <script src="resources/js/jquery-ui.js"></script>
+        <script src="resources/js/jquery.dform-1.1.0.js"></script>
+        <script src="resources/js/js-util.js"></script>
         <link href="resources/css/style.css" rel="stylesheet">        
         <script>
-            $ (function () {                
+            $ (function () {
+            	var questionJSON = null;
+            	// on loading page, fetch question details by ajax GET request
+            	$.ajax({
+				  type: 'GET',
+				  url: 'getExamDetailsInJSON',
+				  /* data: { postVar1: 'theValue1', postVar2: 'theValue2' }, */
+				  beforeSend:function(){
+				    // this is where we append a loading image
+				    /* $('#ajax-panel').html('<div class="loading"><img src="/images/loading.gif" alt="Loading..." /></div>'); */
+				  },
+				  success:function(data){
+				    // successful request; do something with the data
+				    questionJSON = data; /* JSON.stringify(data); */
+				  },
+				  error:function() {
+				    // failed request; give feedback to user
+				    $('#ajax-panel').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
+				  }
+				});
+            	
 				// display popup with form data
 				$(".newbox").click(function () {
-					questionId = $.trim($(this).text());
-					$("#form-panel").show();
+					
+					var qFormObj = $("#questionForm");
+					qFormObj.empty();
+					
+					qId = parseInt($.trim($(this).text()));
+					qObj = questionJSON.questionList[qId - 1];
+					
+					createQuestionPopup(qObj, qFormObj);
+					
+// 					$("#ajax-panel").text(JSON.stringify(qObj));
+					$("#form-container").show();
 				});
 				
 				// popup button to take action
 				$("#cancelBtn, #okBtn, #reviewBtn").click(function() {
-					$("#form-panel").hide(500);					
+					$("#form-container").hide(500);						
                     return false;
 				});
 				
@@ -66,7 +100,7 @@
 			<div style="clear:both;"></div>
 			
 			<!-- ui-dialog -->
-			<div id="form-panel" style="display: none;">
+			<div id="form-container" style="display: none;">
 				<div class="ui-overlay">
 					<div class="ui-widget-overlay"></div>
 					<div class="ui-widget-shadow ui-corner-all"
@@ -74,24 +108,19 @@
 				</div>
 				<div class="ui-widget ui-widget-content ui-corner-all"
 					style="position: absolute; width: 680px; height: 210px;left: 50px; top: 50px;padding: 10px;">
-					<div class="ui-dialog-content ui-widget-content"
+					<div id="form-panel" class="ui-dialog-content ui-widget-content"
 						style="background: none; border: 0;">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat?</p>
-						<ul>
-							<li><input type="radio" name="answer" />The best option will be a</li>
-							<li><input type="radio" name="answer" />The best option will be b</li>
-							<li><input type="radio" name="answer" />The best option will be c</li>
-							<li><input type="radio" name="answer" />The best option will be d</li>
-						</ul>					
+						
+						<form id="questionForm"></form>
+						
 						<input id="okBtn" type="button" value="OK" />
 						<input id="cancelBtn" type="button" value="Cancel" />
 						<input id="reviewBtn" type="button" value="Review later" />
 					</div>
 				</div>
 			</div>
+			
+			<div id="ajax-panel"></div>
 			
 		</div>
 		
@@ -124,7 +153,34 @@
 				<!-- <img src="xmark.png" width="50px;" height="20px" alt="Not attended" /> -->Not answered
 			</div>
 			
-			<div style="margin-bottom: 10px;"> <button id="submitBtn">Submit Test</button> </div>
+			
+			<c:url var="saveForm" value="/saveAnswer" />
+
+			<form:form id="saveForm" action="${saveForm}" method="POST"
+				modelAttribute="questionWrapper">
+		
+				<table>
+					<c:set var="no" value="0"></c:set>
+					<c:forEach items="${questionWrapper.questionList}" varStatus="status">
+						<tr>
+							<c:set var="qID" value="${questionWrapper.questionList[no].id}" />
+							
+							<td align="center">${no}</td>
+							<td><c:out value="${questionWrapper.questionList[no].question}"></c:out></td>
+							<td><form:radiobuttons path="questionList[${status.index}].answer" items="${choiceMap.get(qID)}" /></td>
+							
+							<form:hidden path="questionList[${status.index}].id" />
+							<form:hidden path="questionList[${status.index}].question" />
+							<c:forEach items="${choiceMap.get(qID)}" varStatus="chs">
+								<input type="hidden" name="questionList[${status.index}].choiceList[${chs.index}]" value="${choiceMap.get(qID).get(chs.index)}" />
+							</c:forEach>
+							
+							<c:set var="no" value="${no+1}"></c:set>
+						</tr>
+					</c:forEach>
+				</table>
+				<div style="margin-bottom: 10px;"> <button id="submitBtn">Submit Test</button> </div>		
+			</form:form>
 		</div>		
 </div>
     </body>

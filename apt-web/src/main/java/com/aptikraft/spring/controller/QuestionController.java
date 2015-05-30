@@ -19,19 +19,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aptikraft.common.utils.CurrentUser;
 import com.aptikraft.common.utils.ViewNameConstants;
 import com.aptikraft.spring.service.ExamService;
 import com.aptikraft.spring.service.QuestionService;
 import com.aptikraft.spring.service.TestAnswerService;
+import com.aptikraft.spring.ui.bean.ExamWrapper;
+import com.aptikraft.spring.ui.bean.Question;
 import com.aptikraft.spring.view.bean.ExamBO;
 import com.aptikraft.spring.view.bean.QuestionBO;
 import com.aptikraft.spring.view.bean.TestAnswerBO;
-import com.aptikraft.ui.form.Question;
-import com.aptikraft.ui.form.QuestionWrapper;
 
-@Controller("/")
+@Controller
 public class QuestionController {
 
     private ExamService examService;
@@ -73,32 +74,35 @@ public class QuestionController {
     // returns the ModelAttribute fooListWrapper with the view qa startExamPage
     @RequestMapping(value = { "/startExamPage" }, method = RequestMethod.GET)
     public String getForm(Model model) {
+
+	// return ViewNameConstants.QUESTION_ANSWER;
+	return ViewNameConstants.EXAM;
+    }
+
+    @RequestMapping(value = "/getExamDetailsInJSON", method = RequestMethod.GET)
+    public @ResponseBody ExamWrapper getExamDetailsInJSON() {
 	ExamBO examBO = fetchExamDetails();
 
-	// Map<Integer, List<String>> choiceMap = new HashMap<>();
-	Map<Integer, Map<String, String>> choiceMap = new HashMap<>();
-	QuestionWrapper questionWrapper = new QuestionWrapper();
+	ExamWrapper examWrapper = new ExamWrapper();
+	examWrapper.setDuration(examBO.getDurationMinute());
+	examWrapper.setNoOfQuestion(examBO.getNoOfQuestion());
 
 	if (examBO != null) {
 	    List<QuestionBO> questionBOs = fetchQuestionDetails(examBO);
 	    if (questionBOs != null && !questionBOs.isEmpty()) {
 		for (QuestionBO questionBO : questionBOs) {
-		    Question question = prepareQuestion(questionBO, choiceMap);
+		    Question question = prepareQuestion(questionBO);
 		    if (question != null) {
-			questionWrapper.add(question);
+			examWrapper.addQuestion(question);
 		    }
 		}
 	    }
 	}
-
-	model.addAttribute("questionWrapper", questionWrapper);
-	model.addAttribute("choiceMap", choiceMap);
-//	return ViewNameConstants.QUESTION_ANSWER;
-	return ViewNameConstants.EXAM;
+	return examWrapper;
     }
 
     @RequestMapping(value = "/saveAnswer", method = RequestMethod.POST)
-    public String postForm(@ModelAttribute("questionWrapper") QuestionWrapper questionWrapper, Model model, HttpServletRequest request, HttpServletResponse response) {
+    public String postForm(@ModelAttribute("questionWrapper") ExamWrapper questionWrapper, Model model, HttpServletRequest request, HttpServletResponse response) {
 	for (Question question : questionWrapper.getQuestionList()) {
 	    // Persisting question and answer in DB
 	    TestAnswerBO testAnswerBO = prepareTestAnswerBO(question);
@@ -128,7 +132,7 @@ public class QuestionController {
 	return testAnswerBO;
     }
 
-    private Question prepareQuestion(QuestionBO questionBO, Map<Integer, Map<String, String>> choiceMap) {
+    private Question prepareQuestion(QuestionBO questionBO) {
 	if (questionBO == null) {
 	    return null;
 	}
@@ -144,7 +148,7 @@ public class QuestionController {
 	choices.put("CHOICE_C", questionBO.getChoiceC());
 	choices.put("CHOICE_D", questionBO.getChoiceD());
 	choices.put("CHOICE_E", questionBO.getChoiceE());
-	choiceMap.put(question.getId(), choices);
+	question.setChoiceMap(choices);
 	return question;
     }
 

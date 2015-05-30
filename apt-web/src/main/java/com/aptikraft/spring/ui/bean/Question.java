@@ -1,7 +1,7 @@
-package com.aptikraft.ui.form;
+package com.aptikraft.spring.ui.bean;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Question {
 
@@ -11,18 +11,18 @@ public class Question {
 
     private String answer;
 
-    private List<String> choiceList;
+    private Map<String, String> choiceMap;
 
     public Question() {
-	this.choiceList = new ArrayList<>();
+	this.choiceMap = new HashMap<>();
     }
 
-    public Question(Integer id, String question, String answer, List<String> choiceList) {
+    public Question(Integer id, String question, String answer, Map<String, String> choiceMap) {
 	super();
 	this.id = id;
 	this.question = question;
 	this.answer = answer;
-	this.choiceList = choiceList;
+	this.choiceMap = choiceMap;
     }
 
     public Integer getId() {
@@ -49,12 +49,12 @@ public class Question {
 	this.answer = answer;
     }
 
-    public List<String> getChoiceList() {
-	return choiceList;
+    public Map<String, String> getChoiceMap() {
+	return choiceMap;
     }
 
-    public void setChoiceList(List<String> choiceList) {
-	this.choiceList = choiceList;
+    public void setChoiceMap(Map<String, String> choiceList) {
+	this.choiceMap = choiceList;
     }
 
 }
