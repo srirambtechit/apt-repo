@@ -1,8 +1,8 @@
 body { margin: 0px; padding: 0px; font-family: "Trebuchet MS","Helvetica","Arial","Verdana","sans-serif"; font-size: 62.5%; }
 * { font-size: 14px; }
-.newbox { width: 150px; height: 40px; background-color: #f88; float: left; text-align: center; line-height: 40px; font-size: 1.8em; color: #fff; }
 
-.newbox:hover { background-color: #aaa;	cursor: pointer; }
+.newbox { width: 150px; height: 40px; background-color: #ff66ff; float: left; text-align: center; line-height: 40px; font-size: 1.8em; color: #fff; }
+.newbox:hover { background-color: #aaa; cursor: pointer; }
 
 .top-left-corner-cell, .top-right-corner-cell, .bottom-left-corner-cell, .bottom-right-corner-cell, .top-mid-edge-cell, .left-mid-edge-cell, .right-mid-edge-cell, .bottom-mid-edge-cell, .inner-cell {
 	border: 1px solid #ddd;
@@ -24,10 +24,19 @@ body { margin: 0px; padding: 0px; font-family: "Trebuchet MS","Helvetica","Arial
 	position: absolute;
 }
 
-.red-indicator, .yellow-indicator, .green-indicator { 
+span.red-indicator, span.yellow-indicator, span.green-indicator, span.default-indicator { 
 	padding: 0px; border: 0px; margin: 0px; width: 20px;height: 20px; float: left; margin-right: 5px; border: 1px solid #ccc;
 }
 
-.red-indicator { background-color: #f00; }
-.yellow-indicator { background-color: #ff0; }
-.green-indicator { background-color: #0f0; }
+.mark-unattend, .default-indicator { background-color: #ff66ff; }
+.mark-noanswer, .red-indicator { background-color: #ff0173; }
+.mark-review, .yellow-indicator { background-color: #e6e630; }
+.mark-complete, .green-indicator { background-color: #02ffd3; }
+
+/*
+.mark-complete, .mark-unattend, .mark-review { background-repeat: no-repeat; background-position: center center; }
+
+.mark-complete { background-image: url('../tick.png'); background-repeat: no-repeat; background-position: center center; }
+.mark-unattend { background-image: url('../xmark.png'); }
+.mark-review { background-image: url('../review.png'); }
+*/

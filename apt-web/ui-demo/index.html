@@ -6,44 +6,9 @@
         <link href="themes/smoothness/jquery-ui.css" rel="stylesheet">
         <script src="jquery-1.11.3.js"></script>
         <script src="jquery-ui.js"></script>
-        <link href="css/style.css" rel="stylesheet">
-        <style>
-            .toggler {
-                height  : 200px;
-                position: relative;
-                width   : 500px;
-            }
-            #button {
-                padding        : 0.5em 1em;
-                text-decoration: none;
-            }
-            #effect {
-                height  : 135px;
-                padding : 0.4em;
-                position: relative;
-                width   : 240px;
-            }
-            #effect h3 {
-                margin    : 0;
-                padding   : 0.4em;
-                text-align: center;
-            }
-            .ui-effects-transfer {
-                border: 2px dotted gray;
-            }
-        </style>
+        <link href="css/style.css" rel="stylesheet">        
         <script>
-            $ (function () {
-                // run the currently selected effect
-                function runEffect(divId) {
-                    // get effect type from
-                    var selectedEffect = "drop"; //drop, fade
-                    // most effect types need no options passed by default
-                    var options = {};                    
-                    // run the effect
-                    $("#" + divId).effect(selectedEffect, options, 300);
-                };                
-                
+            $ (function () {                
 				// display popup with form data
 				$(".newbox").click(function () {
 					questionId = $.trim($(this).text());
@@ -51,40 +16,40 @@
 				});
 				
 				// popup button to take action
-				$("#cancelBtn, #okBtn").click(function() {
-					//$("#form-panel").hide();					
-					runEffect("form-panel");
+				$("#cancelBtn, #okBtn, #reviewBtn").click(function() {
+					$("#form-panel").hide(500);					
                     return false;
 				});
 				
 				// on-submit confirmation
-				$("#submitBtn").click(function(){					
+				$("#submitBtn").click(function() {				
 					if(confirm("Are you sure want to submit the test?"))
 						; // proceed for form submittion action
 					else
 						return false;
 				});
             });
-        </script>
-		<style>
 			
-		</style>
+			// Create image 100 * 30
+			
+        </script>
+		
     </head>
     <body>
 <div style=" width: 1070px; margin: auto; ">
 		<div style="position: relative; margin: 50px 1px 50px 50px;padding: 50px;border: 1px solid #ddd;display: table;float: left;">
 		
-			<div id="fDiv" class="newbox top-left-corner-cell">1</div>
+			<div class="mark-complete newbox top-left-corner-cell">1</div>
 			<div class="newbox top-mid-edge-cell">2</div>
-			<div class="newbox top-mid-edge-cell">3</div>
+			<div class="mark-review newbox top-mid-edge-cell">3</div>
 			<div class="newbox top-right-corner-cell">4</div>
 			
 			<div style="clear:both;"></div>
 			
 			<div class="newbox left-mid-edge-cell">5</div>
-			<div class="newbox inner-cell">6</div>
+			<div class="mark-unattend newbox inner-cell">6</div>
 			<div class="newbox inner-cell">7</div>
-			<div class="newbox right-mid-edge-cell">8</div>
+			<div class="mark-noanswer newbox right-mid-edge-cell">8</div>
 			
 			<div style="clear:both;"></div>
 			
@@ -125,6 +90,7 @@
 						</ul>					
 						<input id="okBtn" type="button" value="OK" />
 						<input id="cancelBtn" type="button" value="Cancel" />
+						<input id="reviewBtn" type="button" value="Review later" />
 					</div>
 				</div>
 			</div>
@@ -134,16 +100,31 @@
 		<div style="width: 200px; height: 190px; margin: 50px 0px 0px 0px;padding: 10px;isplay: table;float: left; text-align: right;">
 			<p>Hi Akash</p>
 			<p>120:59</p>
+						
+			<div style="margin-bottom: 10px;"> 
+				<span class="default-indicator"></span>
+				<!-- <img src="tick.png" width="50px;" height="20px" alt="Completed" /> -->Yet to attend
+			</div>
 			
-			<div style="margin-bottom: 10px;"> <p class="green-indicator"></p>Completed</div>
+			
+			<div style="margin-bottom: 10px;"> 
+				<span class="green-indicator"></span>
+				<!-- <img src="tick.png" width="50px;" height="20px" alt="Completed" /> -->Completed
+			</div>
 			
 			<div style="clear:both;"></div>
 			
-			<div style="margin-bottom: 10px;"> <p class="yellow-indicator"></p>Need to review</div>
+			<div style="margin-bottom: 10px;"> 
+				<span class="yellow-indicator"></span>
+				<!-- <img src="review.png" width="50px;" height="20px" alt="Need to review" /> -->Need to review
+			</div>
 			
 			<div style="clear:both;"></div>
 			
-			<div style="margin-bottom: 10px;"> <p class="red-indicator"></p>Not attended</div>
+			<div style="margin-bottom: 10px;">
+				<span class="red-indicator"></span>
+				<!-- <img src="xmark.png" width="50px;" height="20px" alt="Not attended" /> -->Not answered
+			</div>
 			
 			<div style="margin-bottom: 10px;"> <button id="submitBtn">Submit Test</button> </div>
 		</div>		
