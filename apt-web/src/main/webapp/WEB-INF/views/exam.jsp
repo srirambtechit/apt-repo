@@ -13,44 +13,68 @@
         <script src="resources/js/js-util.js"></script>
         <link href="resources/css/style.css" rel="stylesheet">        
         <script>
+        	/*----------------------------------------------------------------
+        		- 1. On loading page, fetch question details by ajax GET request
+	    		- 2. Generating gird panel with question boxes.
+        	*/
+	        // Global variable for storing and accessing json data
+        	var globalJsonObj = null;
+        	var questionJsonIndex = null;
+	    	$.ajax({
+			  type: 'GET',
+			  url: 'getExamDetailsInJSON',
+			  beforeSend:function(){
+			    // this is where we append a loading image
+			    /* $('#ajax-panel').html('<div class="loading"><img src="/images/loading.gif" alt="Loading..." /></div>'); */
+			  },
+			  success:function(data){
+			    // question details fetched from DB as JSON object
+			    globalJsonObj = data;
+			    
+			    noOfQuestion = parseInt(globalJsonObj.noOfQuestion);
+			    
+			    // question grid generation
+	        	createQuestionGridPanel(noOfQuestion, $("#grid-panel"));
+	        	
+	        	// display popup with form data and register click event handler
+	        	$("#grid-panel").on("click", ".newbox", newBoxClickHandler);
+			  },
+			  error:function() {
+			    // failed request; give feedback to user
+			    $('#ajax-panel').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
+			  }
+			});
+	    	
+	    	/*----------------------------------------------------------------*/
             $ (function () {
-            	var questionJSON = null;
-            	// on loading page, fetch question details by ajax GET request
-            	$.ajax({
-				  type: 'GET',
-				  url: 'getExamDetailsInJSON',
-				  /* data: { postVar1: 'theValue1', postVar2: 'theValue2' }, */
-				  beforeSend:function(){
-				    // this is where we append a loading image
-				    /* $('#ajax-panel').html('<div class="loading"><img src="/images/loading.gif" alt="Loading..." /></div>'); */
-				  },
-				  success:function(data){
-				    // successful request; do something with the data
-				    questionJSON = data; /* JSON.stringify(data); */
-				  },
-				  error:function() {
-				    // failed request; give feedback to user
-				    $('#ajax-panel').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
-				  }
-				});
-            	
-				// display popup with form data
-				$(".newbox").click(function () {
-					
-					var qFormObj = $("#questionForm");
-					qFormObj.empty();
-					
-					qId = parseInt($.trim($(this).text()));
-					qObj = questionJSON.questionList[qId - 1];
-					
-					createQuestionPopup(qObj, qFormObj);
-					
-// 					$("#ajax-panel").text(JSON.stringify(qObj));
-					$("#form-container").show();
-				});
-				
 				// popup button to take action
 				$("#cancelBtn, #okBtn, #reviewBtn").click(function() {
+					
+					var btnName = this.name;
+					var popupId = $("input[name='popupId']").val();
+					var box = $("#newBox"+popupId);
+					
+					// reomve if already class added
+					box.removeClass("mark-noanswer mark-complete mark-review");
+					
+					if(btnName == "ok") {
+						// check any one of radio button selected.
+						if($("input[name='answer']").is(":checked")) {
+							answer = $("input[name='answer']:checked").val();
+ 							globalJsonObj.questionList[questionJsonIndex].answer = answer;
+							box.addClass("mark-complete");	
+						} else {
+							box.addClass("mark-noanswer");	
+						}
+					} else if(btnName == "cancel") {
+						if($("input[name='answer']").is(":checked")) {
+							box.addClass("mark-complete");
+						} else {
+							box.addClass("mark-noanswer");							
+						}
+					} else if(btnName == "review") {
+						box.addClass("mark-review");							
+					}
 					$("#form-container").hide(500);						
                     return false;
 				});
@@ -63,41 +87,35 @@
 						return false;
 				});
             });
-			
+	    	
+            newBoxClickHandler = function() {
+				var qFormObj = $("#questionForm");
+				qFormObj.empty();
+				
+				qId = parseInt($.trim($(this).text()));
+				questionJsonIndex = qId - 1;
+				var qJsonObj = globalJsonObj.questionList[questionJsonIndex];
+				
+				// Updating qId as popupId for later use in okBtn, cancelBtn, reviewBtn 
+				$("input[name='popupId']").val(qId);
+				
+				createQuestionPopup(qJsonObj, qFormObj);
+				
+				var answer = globalJsonObj.questionList[questionJsonIndex].answer;
+				if(answer != null) {
+					$("input[name='answer'][value="+answer+"]").attr("checked", true);	
+				}
+				$("#form-container").show();
+			}
         </script>
 		
     </head>
     <body>
-<div style=" width: 1070px; margin: auto; ">
-		<div style="position: relative; margin: 50px 1px 50px 50px;padding: 50px;border: 1px solid #ddd;display: table;float: left;">
-		
-			<div class="mark-complete newbox top-left-corner-cell">1</div>
-			<div class="newbox top-mid-edge-cell">2</div>
-			<div class="mark-review newbox top-mid-edge-cell">3</div>
-			<div class="newbox top-right-corner-cell">4</div>
+	<div id="apt-page-container" style="width: 1070px; margin: auto;">
+		<div id="apt-left-container" style="position: relative; margin: 50px 1px 50px 50px;padding: 50px;border: 1px solid #ddd;display: table;float: left;">
 			
-			<div style="clear:both;"></div>
-			
-			<div class="newbox left-mid-edge-cell">5</div>
-			<div class="mark-unattend newbox inner-cell">6</div>
-			<div class="newbox inner-cell">7</div>
-			<div class="mark-noanswer newbox right-mid-edge-cell">8</div>
-			
-			<div style="clear:both;"></div>
-			
-			<div class="newbox left-mid-edge-cell">9</div>
-			<div class="newbox inner-cell">10</div>
-			<div class="newbox inner-cell">11</div>
-			<div class="newbox right-mid-edge-cell">12</div>
-			
-			<div style="clear:both;"></div>
-			
-			<div class="newbox bottom-left-corner-cell">13</div>
-			<div class="newbox bottom-mid-edge-cell">14</div>
-			<div class="newbox bottom-mid-edge-cell">15</div>
-			<div class="newbox bottom-right-corner-cell">16</div>
-			
-			<div style="clear:both;"></div>
+			<!-- jQuery will generate grid panel using below div -->
+			<div id="grid-panel"></div>
 			
 			<!-- ui-dialog -->
 			<div id="form-container" style="display: none;">
@@ -113,44 +131,44 @@
 						
 						<form id="questionForm"></form>
 						
-						<input id="okBtn" type="button" value="OK" />
-						<input id="cancelBtn" type="button" value="Cancel" />
-						<input id="reviewBtn" type="button" value="Review later" />
+						<!-- jQuery purpose only -->
+						<input type="hidden" name="popupId" value="" />
+						
+						<input id="okBtn" type="button" name="ok" value="OK" />
+						<input id="cancelBtn" type="button" name="cancel" value="Cancel" />
+						<input id="reviewBtn" type="button" name="review" value="Review later" />
 					</div>
 				</div>
 			</div>
 			
+			<!-- Notification panel for capturing errors or message  -->
 			<div id="ajax-panel"></div>
 			
 		</div>
 		
-		<div style="width: 200px; height: 190px; margin: 50px 0px 0px 0px;padding: 10px;isplay: table;float: left; text-align: right;">
+		<div id="apt-right-container" style="width: 200px; height: 190px; margin: 50px 0px 0px 0px;padding: 10px;isplay: table;float: left; text-align: right;">
 			<p>Hi Akash</p>
 			<p>120:59</p>
 						
 			<div style="margin-bottom: 10px;"> 
-				<span class="default-indicator"></span>
-				<!-- <img src="tick.png" width="50px;" height="20px" alt="Completed" /> -->Yet to attend
+				<span class="default-indicator"></span>Yet to attend
 			</div>
 			
 			
 			<div style="margin-bottom: 10px;"> 
-				<span class="green-indicator"></span>
-				<!-- <img src="tick.png" width="50px;" height="20px" alt="Completed" /> -->Completed
+				<span class="green-indicator"></span>Completed
 			</div>
 			
 			<div style="clear:both;"></div>
 			
 			<div style="margin-bottom: 10px;"> 
-				<span class="yellow-indicator"></span>
-				<!-- <img src="review.png" width="50px;" height="20px" alt="Need to review" /> -->Need to review
+				<span class="yellow-indicator"></span>Need to review
 			</div>
 			
 			<div style="clear:both;"></div>
 			
 			<div style="margin-bottom: 10px;">
-				<span class="red-indicator"></span>
-				<!-- <img src="xmark.png" width="50px;" height="20px" alt="Not attended" /> -->Not answered
+				<span class="red-indicator"></span>Not answered
 			</div>
 			
 			
@@ -182,6 +200,6 @@
 				<div style="margin-bottom: 10px;"> <button id="submitBtn">Submit Test</button> </div>		
 			</form:form>
 		</div>		
-</div>
+	</div>
     </body>
 </html>
