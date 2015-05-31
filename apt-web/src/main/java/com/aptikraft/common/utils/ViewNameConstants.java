@@ -13,7 +13,7 @@ public interface ViewNameConstants {
     String ADMIN = "AdminPage";
 
     String LOGIN = "LoginPage";
-    
+
     String USER = "RegisterPage";
 
     String ACCESS_DENIED = "403";

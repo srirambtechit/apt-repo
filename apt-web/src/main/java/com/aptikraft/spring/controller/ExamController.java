@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-//import org.springframework.security.authentication.AnonymousAuthenticationToken;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.core.userdetails.UserDetails;
+// import
+// org.springframework.security.authentication.AnonymousAuthenticationToken;
+// import org.springframework.security.core.Authentication;
+// import org.springframework.security.core.context.SecurityContextHolder;
+// import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,27 +57,25 @@ public class ExamController {
      */
     @RequestMapping(value = "/instructionPage", method = RequestMethod.GET)
     public ModelAndView goToInstructionPage() {
-	
+
 	ModelAndView model = new ModelAndView();
 
 	// One time login
-//	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//	if (!(auth instanceof AnonymousAuthenticationToken)) {
-//	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
-//	    String username = userDetail.getUsername();
-//	    UserBO userBO = getUserService().findByUserName(username);
-//	    if(userBO.isActiveLogin()) {
-//		model.addObject("error", userBO.getUsername() + " is already login, Please logout previous session");
-//		model.setViewName(ViewNameConstants.LOGIN);
-//		return model;
-//	    }
-//	}
-	
-	// Enabling active_login in DB to maintain one time login
-	// throughout application life cycle.
+	// Authentication auth =
+	// SecurityContextHolder.getContext().getAuthentication();
+	// if (!(auth instanceof AnonymousAuthenticationToken)) {
+	// UserDetails userDetail = (UserDetails) auth.getPrincipal();
+	// String username = userDetail.getUsername();
+	// UserBO userBO = getUserService().findByUserName(username);
+	// if(userBO.isActiveLogin()) {
+	// model.addObject("error", userBO.getUsername() +
+	// " is already login, Please logout previous session");
+	// model.setViewName(ViewNameConstants.LOGIN);
+	// return model;
+	// }
+	// }
+
 	UserBO userBO = CurrentUser.getCurrentUserBO();
-	userBO.setActiveLogin(true);
-	getUserService().updateUser(userBO);
 
 	int userId = userBO.getId();
 	List<TestAnswerBO> testAnswerList = getTestAnswerService().fetchTestAnswerByUserId(userId);
@@ -87,6 +86,13 @@ public class ExamController {
 	} else {
 	    model.setViewName(ViewNameConstants.INSTRUCTIONS);
 	}
+
+	// Enabling active_login in DB to maintain one time login throughout
+	// application life cycle. Updating active login status once pass
+	// through above scenarios
+	userBO.setActiveLogin(true);
+	getUserService().updateUser(userBO);
+
 	return model;
     }
 

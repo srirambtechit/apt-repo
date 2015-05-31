@@ -21,6 +21,7 @@ public class MainController {
 
     /**
      * Home page of this application's GET request
+     * 
      * @return
      */
     @RequestMapping(value = { "/" }, method = RequestMethod.GET)
@@ -33,6 +34,7 @@ public class MainController {
 
     /**
      * Administration page GET request
+     * 
      * @return
      */
     @RequestMapping(value = "/admin**", method = RequestMethod.GET)
@@ -46,6 +48,7 @@ public class MainController {
 
     /**
      * Spring security redirection to login after user logged out
+     * 
      * @param error
      * @param logout
      * @param request
@@ -69,7 +72,9 @@ public class MainController {
     }
 
     /**
-     * Spring security - user who don't have ROLE_ADMIN redirect to 403 access denied page
+     * Spring security - user who don't have ROLE_ADMIN redirect to 403 access
+     * denied page
+     * 
      * @return
      */
     @RequestMapping(value = "/403", method = RequestMethod.GET)
@@ -85,7 +90,7 @@ public class MainController {
 	return model;
 
     }
-    
+
     // customize the error message
     private String getErrorMessage(HttpServletRequest request, String key) {
 

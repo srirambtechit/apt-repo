@@ -61,6 +61,7 @@
 					of Lorem Ipsum.</li>
 			</ul>
 			<sec:authorize access="hasRole('ROLE_USER')">
+				<!-- open QAPage in new child window -->
 				<p><a id="startExamAnchorTagId" href="#" onclick="javascript:startExam();">Start Exam</a></p>
 			</sec:authorize>	
 		</div>
