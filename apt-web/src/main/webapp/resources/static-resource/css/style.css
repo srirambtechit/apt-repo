@@ -21,11 +21,7 @@ p.para-question, ul.choices-list li input { letter-spacing: 1px; }
 ul.choices-list { list-style: none; padding: 0px; margin: 0px; padding-bottom: 5px; }
 ul.choices-list li { padding-bottom: 10px;	}
 
-#mycustomscroll {
-	height: 310px;
-	overflow: auto;
-	position: relative;
-}
+#mycustomscroll { height: 310px; overflow: auto; position: relative; }
 
 .error { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; color: #a94442; background-color: #f2dede; border-color: #ebccd1; }
 
