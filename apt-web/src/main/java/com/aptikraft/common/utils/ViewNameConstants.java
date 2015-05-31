@@ -10,20 +10,16 @@ public interface ViewNameConstants {
 
     String REDIRECT_TO_INDEX = "redirect:/index.jsp";
 
-    String HELLO = "hello";
+    String ADMIN = "AdminPage";
 
-    String ADMIN = "admin";
-
-    String LOGIN = "LoginPage"; //login
-
-    String USER = "RegisterPage"; //user
-
-    String ERROR = "error";
+    String LOGIN = "LoginPage";
+    
+    String USER = "RegisterPage";
 
     String ACCESS_DENIED = "403";
 
-    String INSTRUCTIONS = "instructions";
+    String INSTRUCTIONS = "InstructionsPage";
 
-    String EXAM = "exam";
+    String EXAM = "QAPage";
 
 }

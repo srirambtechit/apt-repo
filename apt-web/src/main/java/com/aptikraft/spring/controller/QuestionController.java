@@ -28,21 +28,35 @@ import com.aptikraft.common.utils.ViewNameConstants;
 import com.aptikraft.spring.service.ExamService;
 import com.aptikraft.spring.service.QuestionService;
 import com.aptikraft.spring.service.TestAnswerService;
+import com.aptikraft.spring.service.UserService;
 import com.aptikraft.spring.ui.bean.ExamWrapper;
 import com.aptikraft.spring.ui.bean.JsonResponse;
 import com.aptikraft.spring.ui.bean.Question;
 import com.aptikraft.spring.view.bean.ExamBO;
 import com.aptikraft.spring.view.bean.QuestionBO;
 import com.aptikraft.spring.view.bean.TestAnswerBO;
+import com.aptikraft.spring.view.bean.UserBO;
 
 @Controller
 public class QuestionController {
+
+    private UserService userService;
 
     private ExamService examService;
 
     private QuestionService questionService;
 
     private TestAnswerService testAnswerService;
+
+    @Autowired(required = true)
+    @Qualifier(value = "userService")
+    public void setUserService(UserService userService) {
+	this.userService = userService;
+    }
+
+    public UserService getUserService() {
+	return userService;
+    }
 
     @Autowired(required = true)
     @Qualifier(value = "examService")
@@ -113,6 +127,13 @@ public class QuestionController {
 		TestAnswerBO testAnswerBO = prepareTestAnswerBO(question);
 		getTestAnswerService().addTestAnswer(testAnswerBO);
 	    }
+
+	    // Enabling active_login in DB to maintain one time login
+	    // throughout application life cycle.
+	    UserBO userBO = CurrentUser.getCurrentUserBO();
+	    userBO.setActiveLogin(false);
+	    getUserService().updateUser(userBO);
+
 	    // Automatically logout once exam submitted.
 	    logout(request, response);
 	    jsonResponse = new JsonResponse("OK", "");

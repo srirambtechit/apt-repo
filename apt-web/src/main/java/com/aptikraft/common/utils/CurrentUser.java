@@ -24,10 +24,5 @@ public class CurrentUser {
 	UserService userService = ApplicationContextProvider.getBean(UserService.class);
 	return userService.findByUserName(getCurrentUsername());
     }
-    
-    public static String getNameOfLoggedInUser() {
-	UserService userService = ApplicationContextProvider.getBean(UserService.class);
-	return userService.findByUserName(getCurrentUsername()).getName();
-    }
 
 }

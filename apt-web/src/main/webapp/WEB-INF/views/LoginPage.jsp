@@ -5,7 +5,7 @@
 	<title>Aptikraft Online Exam Application - LoginPage</title>
 	<link rel="stylesheet" href="resources/css/style.css" />
 </head>
-<body>
+<body onload='document.loginForm.username.focus();'>
 	<div id="page-container">
 		<div id="content-body">
 			<h4>Aptikraft Online Exam Application</h4>

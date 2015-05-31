@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+//import org.springframework.security.authentication.AnonymousAuthenticationToken;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.aptikraft.common.utils.CurrentUser;
 import com.aptikraft.common.utils.ViewNameConstants;
@@ -51,8 +55,23 @@ public class ExamController {
      * @return
      */
     @RequestMapping(value = "/instructionPage", method = RequestMethod.GET)
-    public String goToInstructionPage(Model model) {
+    public ModelAndView goToInstructionPage() {
+	
+	ModelAndView model = new ModelAndView();
 
+	// One time login
+//	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//	if (!(auth instanceof AnonymousAuthenticationToken)) {
+//	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
+//	    String username = userDetail.getUsername();
+//	    UserBO userBO = getUserService().findByUserName(username);
+//	    if(userBO.isActiveLogin()) {
+//		model.addObject("error", userBO.getUsername() + " is already login, Please logout previous session");
+//		model.setViewName(ViewNameConstants.LOGIN);
+//		return model;
+//	    }
+//	}
+	
 	// Enabling active_login in DB to maintain one time login
 	// throughout application life cycle.
 	UserBO userBO = CurrentUser.getCurrentUserBO();
@@ -62,11 +81,13 @@ public class ExamController {
 	int userId = userBO.getId();
 	List<TestAnswerBO> testAnswerList = getTestAnswerService().fetchTestAnswerByUserId(userId);
 	if (testAnswerList != null && !testAnswerList.isEmpty()) {
-	    return ViewNameConstants.REDIRECT_TO_INDEX;
-	} else {
 	    // User is already taken the exam
-	    return ViewNameConstants.INSTRUCTIONS;
+	    model.addObject("msg", userBO.getUsername() + " is already taken exam");
+	    model.setViewName(ViewNameConstants.LOGIN);
+	} else {
+	    model.setViewName(ViewNameConstants.INSTRUCTIONS);
 	}
+	return model;
     }
 
 }

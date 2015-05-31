@@ -55,7 +55,7 @@ public class MainController {
     public ModelAndView login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
 
 	ModelAndView model = new ModelAndView();
-	if (error != null && !error.trim().isEmpty()) {
+	if (error != null) {
 	    model.addObject("error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
 	}
 

@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%-- <%@ page import="com.aptikraft.common.utils.CurrentUser;" %> --%>
 <%@ page session="true"%>
 <html>
 <head>
@@ -9,9 +8,16 @@
 	<link rel="stylesheet" href="resources/css/style.css" />
 	<script type="text/javascript">
 		// opening new child window to load QA Page in it
-		//url : startExamPage
 		function startExam() {
+			document.getElementById("startExamAnchorTagId").style.display = "none";
 			
+			var winFeaturesStr = "width=550,height=170,0,status=0,";
+			var winUrl = "/apt-web/startExamPage";
+			var winName = "Aptikraft Online Exam Application - QAPage";
+			var winObj = window.open(winUrl, winName, winFeaturesStr);
+			winObj.moveTo(0, 0);
+			winObj.resizeTo(screen.availWidth, screen.availHeight);
+			return false;
 		}
 	</script>
 </head>
@@ -35,7 +41,6 @@
 		
 				<c:if test="${pageContext.request.userPrincipal.name != null}">
 					<h2>
-<%-- 						<c:out value="${ CurrentUser.getNameOfLoggedInUser() }" /> --%>
 						User : ${pageContext.request.userPrincipal.name} | <a
 							href="javascript:formSubmit()"> Logout</a>
 					</h2>
@@ -56,7 +61,7 @@
 					of Lorem Ipsum.</li>
 			</ul>
 			<sec:authorize access="hasRole('ROLE_USER')">
-				<p><a href="javascript:startExam();">Start Exam</a></p>
+				<p><a id="startExamAnchorTagId" href="#" onclick="javascript:startExam();">Start Exam</a></p>
 			</sec:authorize>	
 		</div>
 		<div id="footer">

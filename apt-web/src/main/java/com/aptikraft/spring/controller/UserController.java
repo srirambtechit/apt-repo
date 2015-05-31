@@ -59,7 +59,8 @@ public class UserController {
     }
 
     /**
-     *  Persist new user details in database
+     * Persist new user details in database
+     * 
      * @param userBO
      * @return
      */

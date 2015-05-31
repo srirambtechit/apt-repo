@@ -111,7 +111,8 @@
                             if (data.status == 'OK') {
                                 alert('Congratulation!!! You have successfully completed exam.');
                                 // similar behavior as an HTTP redirect
-                                window.location.replace("index.jsp");
+                                //window.location.replace("index.jsp");
+                                window.close();
 
                                 // similar behavior as clicking on a link
                                 // window.location.href = "http://stackoverflow.com";
@@ -120,7 +121,7 @@
                             }
                         },
                         type       : 'POST',
-                        // spring security expectes when csrf enabled, appending with http POST request
+                        // spring security expectes when csrf enabled, hence appending with http POST request
                         url        : 'saveAnswerDetailsFromJSON?${_csrf.parameterName}=${_csrf.token}'
                     });
                 }
@@ -156,10 +157,13 @@
         </script>
     </head>
     <body>
+    	
         <div id="apt-page-container" style="width: 1070px; margin: auto;">
+        	<h4>Aptikraft Online Exam Application</h4>
             <div id="apt-left-container"
                 style="position: relative; margin: 50px 1px 50px 50px; padding: 50px; border: 1px
                 solid #ddd; display: table; float: left;">
+                
                 <!-- jQuery will generate grid panel using below div -->
                 <div id="grid-panel"></div>
                 <!-- ui-dialog -->
@@ -188,8 +192,12 @@
             </div>
             <div id="apt-right-container"
                 style="width: 200px; height: 190px; margin: 50px 0px 0px 0px; padding: 10px;
-                isplay: table; float: left; text-align: right;">
-                <p>Hi Akash</p>
+                display: table; float: left; text-align: right;">
+                <c:if test="${pageContext.request.userPrincipal.name != null}">
+					<h2>
+						User : ${pageContext.request.userPrincipal.name}
+					</h2>
+				</c:if>
                 <div id="clock"></div>
                 <div style="margin-top: 10px;margin-bottom: 10px;">
                     <span class="default-indicator"></span>Yet to attend
