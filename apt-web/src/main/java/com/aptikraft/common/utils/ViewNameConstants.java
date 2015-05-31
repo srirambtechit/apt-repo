@@ -14,9 +14,9 @@ public interface ViewNameConstants {
 
     String ADMIN = "admin";
 
-    String LOGIN = "login";
+    String LOGIN = "LoginPage"; //login
 
-    String USER = "user";
+    String USER = "RegisterPage"; //user
 
     String ERROR = "error";
 

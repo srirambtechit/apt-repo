@@ -120,6 +120,7 @@
                             }
                         },
                         type       : 'POST',
+                        // spring security expectes when csrf enabled, appending with http POST request
                         url        : 'saveAnswerDetailsFromJSON?${_csrf.parameterName}=${_csrf.token}'
                     });
                 }

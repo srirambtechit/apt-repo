@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page session="true"%>
 <html>
 <head>
 	<title>Aptikraft Online Exam Application - LoginPage</title>

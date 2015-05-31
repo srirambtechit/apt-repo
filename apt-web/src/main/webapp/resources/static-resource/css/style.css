@@ -1,7 +1,29 @@
 body { margin: 0px; padding: 0px; font-family: "Trebuchet MS","Helvetica","Arial","Verdana","sans-serif"; font-size: 62.5%; }
+
 * { font-size: 14px; }
 
+#page-container { margin: 0px auto; width: 1100px; height: 600px; }
+
+#footer { margin: 0px auto; width: 1100px; height: 40px; position: absolute; bottom: 20px; }
+
+#footer p { text-align: center; }
+ 		
+form p span { width: 90px; display: inline-block; }
+
+h4 { font-family: cursive; font-size: medium; letter-spacing: 1px; }
+
+p.heading-style1 { font-family: fantasy; font-size: x-large; font-style: normal; color: #6d6d6d; }
+
+a.link { color: #000;  }
+
+.error { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; color: #a94442; background-color: #f2dede; border-color: #ebccd1; }
+
+.msg { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; color: #31708f; background-color: #d9edf7; border-color: #bce8f1; }
+		
+/* Below styles applicable for ExamPage */ 		
+
 .newbox { width: 150px; height: 40px; background-color: #ff66ff; float: left; text-align: center; line-height: 40px; font-size: 1.8em; color: #fff; }
+
 .newbox:hover { background-color: #aaa; cursor: pointer; }
 
 .top-left-corner-cell, .top-right-corner-cell, .bottom-left-corner-cell, .bottom-right-corner-cell, .top-mid-edge-cell, .left-mid-edge-cell, .right-mid-edge-cell, .bottom-mid-edge-cell, .inner-cell {
@@ -20,9 +42,7 @@ body { margin: 0px; padding: 0px; font-family: "Trebuchet MS","Helvetica","Arial
 
 .inner-cell {margin: 1px; /* border: 1px solid #ddd; */}
 
-.fakewindowcontain .ui-widget-overlay {
-	position: absolute;
-}
+.fakewindowcontain .ui-widget-overlay { position: absolute; }
 
 span.red-indicator, span.yellow-indicator, span.green-indicator, span.default-indicator { 
 	padding: 0px; border: 0px; margin: 0px; width: 20px;height: 20px; float: left; margin-right: 5px; border: 1px solid #ccc;
@@ -32,41 +52,3 @@ span.red-indicator, span.yellow-indicator, span.green-indicator, span.default-in
 .mark-noanswer, .red-indicator { background-color: #ff0173; }
 .mark-review, .yellow-indicator { background-color: #e6e630; }
 .mark-complete, .green-indicator { background-color: #02ffd3; }
-
-/*
-.mark-complete, .mark-unattend, .mark-review { background-repeat: no-repeat; background-position: center center; }
-
-.mark-complete { background-image: url('../tick.png'); background-repeat: no-repeat; background-position: center center; }
-.mark-unattend { background-image: url('../xmark.png'); }
-.mark-review { background-image: url('../review.png'); }
-*/
-
-.error {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #a94442;
-	background-color: #f2dede;
-	border-color: #ebccd1;
-}
-
-.msg {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #31708f;
-	background-color: #d9edf7;
-	border-color: #bce8f1;
-}
-
-#login-box {
-	width: 300px;
-	padding: 20px;
-	margin: 100px auto;
-	background: #fff;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border: 1px solid #000;
-}

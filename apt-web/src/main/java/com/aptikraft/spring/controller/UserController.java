@@ -58,8 +58,12 @@ public class UserController {
 	return ViewNameConstants.USER;
     }
 
-    // Persist new user details in database
-    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
+    /**
+     *  Persist new user details in database
+     * @param userBO
+     * @return
+     */
+    @RequestMapping(value = "/addNewUser", method = RequestMethod.POST)
     public ModelAndView addUser(@ModelAttribute("user") UserBO userBO) {
 	ModelAndView model = new ModelAndView();
 	if (registeredUser(userBO)) {

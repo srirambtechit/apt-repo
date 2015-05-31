@@ -19,29 +19,38 @@ import com.aptikraft.common.utils.ViewNameConstants;
 @Controller
 public class MainController {
 
-    @RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
+    /**
+     * Home page of this application's GET request
+     * @return
+     */
+    @RequestMapping(value = { "/" }, method = RequestMethod.GET)
     public ModelAndView defaultPage() {
-
 	ModelAndView model = new ModelAndView();
-	model.addObject("title", "Spring Security + Hibernate Example");
-	model.addObject("message", "This is default page!");
-	model.setViewName(ViewNameConstants.HELLO);
+	model.addObject("title", "Aptikraft Online Exam Application - LoginPage");
+	model.setViewName(ViewNameConstants.LOGIN);
 	return model;
-
     }
 
+    /**
+     * Administration page GET request
+     * @return
+     */
     @RequestMapping(value = "/admin**", method = RequestMethod.GET)
     public ModelAndView adminPage() {
-
 	ModelAndView model = new ModelAndView();
-	model.addObject("title", "Spring Security + Hibernate Example");
+	model.addObject("title", "Aptikraft Online Exam Application - AdministratorPage");
 	model.addObject("message", "This page is for ROLE_ADMIN only!");
 	model.setViewName(ViewNameConstants.ADMIN);
-
 	return model;
-
     }
 
+    /**
+     * Spring security redirection to login after user logged out
+     * @param error
+     * @param logout
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
 
@@ -59,6 +68,24 @@ public class MainController {
 
     }
 
+    /**
+     * Spring security - user who don't have ROLE_ADMIN redirect to 403 access denied page
+     * @return
+     */
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    public ModelAndView accesssDenied() {
+	ModelAndView model = new ModelAndView();
+	// check if user is login
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	if (!(auth instanceof AnonymousAuthenticationToken)) {
+	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
+	    model.addObject("username", userDetail.getUsername());
+	}
+	model.setViewName(ViewNameConstants.ACCESS_DENIED);
+	return model;
+
+    }
+    
     // customize the error message
     private String getErrorMessage(HttpServletRequest request, String key) {
 
@@ -74,21 +101,6 @@ public class MainController {
 	}
 
 	return error;
-    }
-
-    // for 403 access denied page
-    @RequestMapping(value = "/403", method = RequestMethod.GET)
-    public ModelAndView accesssDenied() {
-	ModelAndView model = new ModelAndView();
-	// check if user is login
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	if (!(auth instanceof AnonymousAuthenticationToken)) {
-	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
-	    model.addObject("username", userDetail.getUsername());
-	}
-	model.setViewName(ViewNameConstants.ACCESS_DENIED);
-	return model;
-
     }
 
 }
