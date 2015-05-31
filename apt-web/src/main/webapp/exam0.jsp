@@ -6,7 +6,7 @@
         <link href="resources/themes/smoothness/jquery-ui.css" rel="stylesheet">
         <script src="resources/js/jquery-1.11.3.js"></script>
         <script src="resources/js/jquery-ui.js"></script>
-        <link href="resources/css/style.css" rel="stylesheet">        
+        <link href="resources/css/style.css" rel="stylesheet">     
         <script>
             $ (function () {                
 				// display popup with form data
@@ -31,7 +31,17 @@
             });
 			
         </script>
-		
+		<style type="text/css">
+			p.para-question, ul.choices-list li input { letter-spacing: 1px; }
+			ul.choices-list { list-style: none; padding: 0px; margin: 0px; padding-bottom: 5px; }
+			ul.choices-list li { padding-bottom: 10px;	}
+			
+			#mycustomscroll {
+				height: 310px;
+				overflow: auto;
+				position: relative;
+			}
+		</style>
     </head>
     <body>
 <div style=" width: 1070px; margin: auto; ">
@@ -70,25 +80,53 @@
 				<div class="ui-overlay">
 					<div class="ui-widget-overlay"></div>
 					<div class="ui-widget-shadow ui-corner-all"
-						style="width: 702px; height: 232px; position: absolute; left: 50px; top: 50px;"></div>
+						style="width: 712px; height: 372px; position: absolute; left: 0px; top: 0px;"></div>
 				</div>
 				<div class="ui-widget ui-widget-content ui-corner-all"
-					style="position: absolute; width: 680px; height: 210px;left: 50px; top: 50px;padding: 10px;">
+					style="position: absolute; width: 690px; height: 350px;left: 0px; top: 0px;padding: 10px;">
 					<div class="ui-dialog-content ui-widget-content"
 						style="background: none; border: 0;">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat?</p>
-						<ul>
-							<li><input type="radio" name="answer" />The best option will be a</li>
-							<li><input type="radio" name="answer" />The best option will be b</li>
-							<li><input type="radio" name="answer" />The best option will be c</li>
-							<li><input type="radio" name="answer" />The best option will be d</li>
-						</ul>					
-						<input id="okBtn" type="button" value="OK" />
-						<input id="cancelBtn" type="button" value="Cancel" />
-						<input id="reviewBtn" type="button" value="Review later" />
+						<div id="mycustomscroll">
+							<p class="para-question">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat?Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat?Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat?Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat?Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat?Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat?Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat?Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat?Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat?</p>
+							<ul class="choices-list" >
+								<li><input type="radio" name="answer" id="answer1" /><label for="answer1">The best option will be a</label></li>
+								<li><input type="radio" name="answer" id="answer2" /><label for="answer2">The best option will be b</label></li>
+								<li><input type="radio" name="answer" id="answer3" /><label for="answer3">The best option will be c</label></li>
+								<li><input type="radio" name="answer" id="answer4" /><label for="answer4">The best option will be d</label></li>
+							</ul>
+						</div>
+						<div style="position: absolute; bottom: 10px;">
+							<input id="okBtn" type="button" value="OK" />
+							<input id="cancelBtn" type="button" value="Cancel" />
+							<input id="reviewBtn" type="button" value="Review later" />
+						</div>
 					</div>
 				</div>
 			</div>

@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="true"%>
 <!doctype html>
 <html lang="en">
@@ -166,27 +165,31 @@
                 
                 <!-- jQuery will generate grid panel using below div -->
                 <div id="grid-panel"></div>
+                
                 <!-- ui-dialog -->
-                <div id="form-container" style="display: none;">
-                    <div class="ui-overlay">
-                        <div class="ui-widget-overlay"></div>
-                        <div class="ui-widget-shadow ui-corner-all"
-                            style="width: 702px; height: 232px; position: absolute; left: 50px; top: 50px;"></div>
-                    </div>
-                    <div class="ui-widget ui-widget-content ui-corner-all"
-                        style="position: absolute; width: 680px; height: 210px; left: 50px; top: 50px;
-                        padding: 10px;">
-                        <div class="ui-dialog-content ui-widget-content" id="form-panel"
-                            style="background: none; border: 0;">
-                            <form id="questionForm"></form>
-                            <!-- jQuery purpose only -->
-                            <input name="popupId" type="hidden" value=""/>
-                            <input id="okBtn" name="ok" type="button" value="OK"/>
-                            <input id="cancelBtn" name="cancel" type="button" value="Cancel"/>
-                            <input id="reviewBtn" name="review" type="button" value="Review later"/>
-                        </div>
-                    </div>
-                </div>
+	  			<div id="form-container" style="display: none;">
+	                <div class="ui-overlay">
+						<div class="ui-widget-overlay"></div>
+						<div class="ui-widget-shadow ui-corner-all"
+							style="width: 712px; height: 372px; position: absolute; left: 0px; top: 0px;"></div>
+					</div>
+					<div class="ui-widget ui-widget-content ui-corner-all"
+						style="position: absolute; width: 690px; height: 350px;left: 0px; top: 0px;padding: 10px;">
+						<div id="form-panel" class="ui-dialog-content ui-widget-content"
+							style="background: none; border: 0;">
+							<div id="mycustomscroll">
+	                            <form id="questionForm"></form>                           
+	                        </div>
+							<div style="position: absolute; bottom: 10px;">
+	                            <!-- jQuery purpose only -->
+	                            <input name="popupId" type="hidden" value=""/>
+	                            <input id="okBtn" name="ok" type="button" value="OK"/>
+	                            <input id="cancelBtn" name="cancel" type="button" value="Cancel"/>
+	                            <input id="reviewBtn" name="review" type="button" value="Review later"/>
+	                         </div>
+	                    </div>
+	                </div>
+       			</div>
                 <!-- Notification panel for capturing errors or message  -->
                 <div id="ajax-panel"></div>
             </div>
@@ -198,7 +201,7 @@
 						User : ${pageContext.request.userPrincipal.name}
 					</h2>
 				</c:if>
-                <div id="clock"></div>
+                <div id="clock" class="ui-widget ui-widget-content ui-corner-all" style="border:none;font-size: 15px;font-weight: bolder; color: #00f;" ></div>
                 <div style="margin-top: 10px;margin-bottom: 10px;">
                     <span class="default-indicator"></span>Yet to attend
                 </div>
@@ -213,8 +216,8 @@
                 <div style="margin-bottom: 10px;">
                     <span class="red-indicator"></span>Not answered
                 </div>
-                <div style="margin-bottom: 10px;">
-                    <button id="submitBtn">Submit Test</button>
+                <div style="margin-bottom: 10px; border: none;" class="ui-widget ui-widget-content ui-corner-all">
+                    <button id="submitBtn" class=".ui-widget button">Submit Test</button>
                 </div>
             </div>
         </div>

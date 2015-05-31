@@ -148,21 +148,32 @@ function newMiddleRightEdgeCell(data) {
 }
 
 function createQuestionPopup(jsonObj, target) {
-	$("<p/>").text(jsonObj.question + "; ans = " + jsonObj.answer).appendTo(
+	$("<p/>", {
+		"class" : "para-question"
+	}).text(jsonObj.question + "; ans = " + jsonObj.answer).appendTo(
 			target);
 
-	var ul = $("<ul/>");
+	var ul = $("<ul/>", {
+		"class" : "choices-list"
+	});
 
+	var count = 0;
 	for (key in jsonObj.choiceMap) {
 		var li = $("<li/>");
 		var radio = $("<input/>", {
+			"id" : "answer" + count,
 			"type" : "radio",
 			"name" : "answer",
 			"value" : key,
 		});
+		var label = $("<label/>", {
+			"for" : "answer" + count,
+		});
 		radio.appendTo(li);
-		li.append(jsonObj.choiceMap[key]);
+		label.append(jsonObj.choiceMap[key]);
+		label.appendTo(li);
 		li.appendTo(ul);
+		count++;
 	}
 	ul.appendTo(target);
 }
