@@ -56,7 +56,7 @@ public class MainController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
-
+System.out.println("MainController entered");
 	ModelAndView model = new ModelAndView();
 	if (error != null) {
 	    model.addObject("error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
@@ -66,7 +66,7 @@ public class MainController {
 	    model.addObject("msg", "You've been logged out successfully.");
 	}
 	model.setViewName(ViewNameConstants.LOGIN);
-
+System.out.println("MainController exited");
 	return model;
 
     }

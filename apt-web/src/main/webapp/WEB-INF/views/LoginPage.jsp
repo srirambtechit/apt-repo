@@ -3,6 +3,8 @@
 <html>
 <head>
 	<title>Aptikraft Online Exam Application - LoginPage</title>
+	<script src="resources/js/jquery-1.11.3.js"></script>
+	<script src="resources/js/form-validation.js"></script>
 	<link rel="stylesheet" href="resources/css/style.css" />
 </head>
 <body onload='document.loginForm.username.focus();'>
@@ -13,11 +15,14 @@
 			<c:if test="${not empty error}">
 				<div class="error">${error}</div>
 			</c:if>
+			
+			<div class="form-error"></div>
+			
 			<c:if test="${not empty msg}">
 				<div class="msg">${msg}</div>
 			</c:if>
 			
-			<form name='loginForm' action="<c:url value='/j_spring_security_check' />" method='POST'>
+			<form name='loginForm' action="<c:url value='/j_spring_security_check' />" method='POST' onsubmit="return validateLoginForm();">
 				<p class="heading-style1">User Login</p>
 				<p><span>Username : </span><input type="text" name="username" /></p>
 				<p><span>Password : </span><input type="password" name="password" /></p>

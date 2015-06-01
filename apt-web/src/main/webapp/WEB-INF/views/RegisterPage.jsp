@@ -5,6 +5,8 @@
 <html>
 <head>
 	<title>Aptikraft Online Exam Application - RegisterPage</title>
+	<script src="resources/js/jquery-1.11.3.js"></script>
+	<script src="resources/js/form-validation.js"></script>
 	<link rel="stylesheet" href="resources/css/style.css" />
 	<style type="text/css">
 		form p span { width: 150px; }
@@ -21,7 +23,9 @@
 				<div class="error">${error}</div>
 			</c:if>
 		
-			<form:form action="${addAction}" commandName="user">
+			<div class="form-error"></div>
+		
+			<form:form name="registerForm" action="${addAction}" commandName="user" onsubmit="return validateRegistrationForm();">
 				<p class="heading-style1">New User Registration</p>
 				
 				<p>

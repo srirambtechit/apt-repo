@@ -82,6 +82,7 @@ public class UserController {
 		    getUserRoleService().addUserRole(userRoleBO);
 		}
 	    }
+	    model.addObject("msg", "Welcome, You've been registered successfully.");
 	    model.setViewName(ViewNameConstants.LOGIN);
 	}
 	return model;
