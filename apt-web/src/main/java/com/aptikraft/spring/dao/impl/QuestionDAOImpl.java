@@ -2,8 +2,10 @@ package com.aptikraft.spring.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,11 +40,11 @@ public class QuestionDAOImpl implements QuestionDAO {
     @Override
     public List<QuestionDO> listQuestions() {
 	Session session = this.sessionFactory.getCurrentSession();
-	List<QuestionDO> QuestionDOs = session.createQuery("from QuestionDO").list();
-	for (QuestionDO questionDO : QuestionDOs) {
+	List<QuestionDO> questionDOs = session.createQuery("from QuestionDO").list();
+	for (QuestionDO questionDO : questionDOs) {
 	    logger.info("QuestionDO List::" + questionDO);
 	}
-	return QuestionDOs;
+	return questionDOs;
     }
 
     @Override
@@ -61,6 +63,16 @@ public class QuestionDAOImpl implements QuestionDAO {
 	    session.delete(questionDO);
 	}
 	logger.info("QuestionDO deleted successfully, QuestionDO details=" + questionDO);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<QuestionDO> listQuestionsByIds(List<Integer> ids) {
+	Session session = this.sessionFactory.getCurrentSession();
+	Criteria criteria = session.createCriteria(QuestionDO.class);
+	List<QuestionDO> questionDOs = criteria.add(Restrictions.in("id", ids)).list();
+	logger.info("QuestionDO List::" + questionDOs);
+	return questionDOs;
     }
 
 }

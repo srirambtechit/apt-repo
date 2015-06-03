@@ -122,11 +122,36 @@ public class QuestionController {
     public @ResponseBody JsonResponse saveAnswerDetailsFromJSON(@RequestBody ExamWrapper examWrapper, HttpServletRequest request, HttpServletResponse response) {
 	System.out.println(examWrapper);
 	JsonResponse jsonResponse = null;
+
 	if (examWrapper != null && !examWrapper.getQuestionList().isEmpty()) {
+	    List<Question> questionList = examWrapper.getQuestionList();
+	    List<Integer> questionIds = new ArrayList<>();
+	    for (Question question : questionList) {
+		questionIds.add(question.getId());
+	    }
+
+	    Map<Integer, String> qaMap = new HashMap<>();
+	    List<QuestionBO> qaList = getQuestionService().listQuestionsByIds(questionIds);
+	    if (qaList != null && !qaList.isEmpty()) {
+		for (QuestionBO q : qaList) {
+		    qaMap.put(q.getId(), q.getAnswer());
+		}
+	    }
+
 	    for (Question question : examWrapper.getQuestionList()) {
 		// Persisting question and answer in DB
-		TestAnswerBO testAnswerBO = prepareTestAnswerBO(question);
-		getTestAnswerService().addTestAnswer(testAnswerBO);
+		if (question != null) {
+		    TestAnswerBO testAnswerBO = prepareTestAnswerBO(question);
+
+		    // validating user entered answer with actual answer
+		    if (qaMap != null && !qaMap.isEmpty()) {
+			if (qaMap.get(question.getId()).equals(question.getAnswer())) {
+			    // by default for all correct answer, mark will be 1
+			    testAnswerBO.setWeightage(1.0f);
+			}
+		    }
+		    getTestAnswerService().addTestAnswer(testAnswerBO);
+		}
 	    }
 
 	    // Enabling active_login in DB to maintain one time login

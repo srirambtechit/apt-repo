@@ -15,5 +15,7 @@ public interface QuestionService {
     public QuestionBO getQuestionById(int id);
 
     public void removeQuestion(int id);
+    
+    public List<QuestionBO> listQuestionsByIds(List<Integer> ids);
 
 }

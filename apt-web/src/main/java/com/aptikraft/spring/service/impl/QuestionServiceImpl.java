@@ -49,4 +49,10 @@ public class QuestionServiceImpl implements QuestionService {
 	this.questionDAO.removeQuestion(id);
     }
 
+    @Override
+    @Transactional
+    public List<QuestionBO> listQuestionsByIds(List<Integer> ids) {
+	return QuestionProvider.getQuestionsFromDOToBO(this.questionDAO.listQuestionsByIds(ids));
+    }
+
 }
