@@ -15,6 +15,7 @@ available controller links:-
 	
 - InstructionPage should redirect to loginPage when user already logged out.	
 - Time out scenario in exam page need to be validated.
+- Database backup need to take and question need to upload in DB
 
 Admin Module:-
 
