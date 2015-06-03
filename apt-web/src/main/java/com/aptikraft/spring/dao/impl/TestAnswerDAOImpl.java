@@ -31,11 +31,11 @@ public class TestAnswerDAOImpl implements TestAnswerDAO {
 
     @Override
     public void addBlukData(List<TestAnswerDO> testAnswerDOs) {
-	
+
 	StatelessSession session = this.sessionFactory.openStatelessSession();
-	
+
 	Transaction transaction = session.beginTransaction();
-	
+
 	for (int index = 0; index < testAnswerDOs.size();) {
 	    TestAnswerDO testAnswerDO = testAnswerDOs.get(index);
 	    session.insert(testAnswerDO);

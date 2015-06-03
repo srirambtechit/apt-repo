@@ -15,7 +15,7 @@ public interface QuestionDAO {
     public QuestionDO getQuestionById(int id);
 
     public void removeQuestion(int id);
-    
+
     public List<QuestionDO> listQuestionsByIds(List<Integer> ids);
 
 }

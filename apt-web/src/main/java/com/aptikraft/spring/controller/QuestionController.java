@@ -17,12 +17,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.aptikraft.common.utils.CurrentUser;
 import com.aptikraft.common.utils.ViewNameConstants;
@@ -91,8 +91,20 @@ public class QuestionController {
 
     // returns the ModelAttribute fooListWrapper with the view qa startExamPage
     @RequestMapping(value = { "/startExamPage" }, method = RequestMethod.GET)
-    public String getForm(Model model) {
-	return ViewNameConstants.EXAM;
+    public ModelAndView getForm() {
+	ModelAndView model = new ModelAndView();
+	try {
+	    // If user is not login, trying to access this startExamPage, no
+	    // user object will be bound with spring security for authentication
+	    // exception raised by Spring Security
+	    CurrentUser.getCurrentUserBO();
+	} catch (Exception e) {
+	    model.addObject("error", "Authentication failed. Login required!");
+	    model.setViewName(ViewNameConstants.LOGIN);
+	    return model;
+	}
+	model.setViewName(ViewNameConstants.EXAM);
+	return model;
     }
 
     @RequestMapping(value = "/getExamDetailsInJSON", method = RequestMethod.GET)
