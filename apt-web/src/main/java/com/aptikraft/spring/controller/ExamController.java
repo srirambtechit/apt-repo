@@ -59,9 +59,17 @@ public class ExamController {
     public ModelAndView goToInstructionPage() {
 
 	ModelAndView model = new ModelAndView();
-
-	UserBO userBO = CurrentUser.getCurrentUserBO();
-
+	UserBO userBO = null;
+	try {
+	    // If user is not login, trying to access this instructionPage, no
+	    // user object will be bound with spring security for authentication
+	    // exception raised by Spring Security
+	    userBO = CurrentUser.getCurrentUserBO();
+	} catch (Exception e) {
+	    model.addObject("error", "Authentication failed. Login required!");
+	    model.setViewName(ViewNameConstants.LOGIN);
+	    return model;
+	}
 	int userId = userBO.getId();
 	List<TestAnswerBO> testAnswerList = getTestAnswerService().fetchTestAnswerByUserId(userId);
 	if (testAnswerList != null && !testAnswerList.isEmpty()) {
