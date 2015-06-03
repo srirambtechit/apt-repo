@@ -6,19 +6,17 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Aptikraft Online Exam Application - InstructionPage</title>
 	<link rel="stylesheet" href="resources/css/style.css" />
+	<script src="resources/js/jquery-1.11.3.js"></script>
 	<script type="text/javascript">
 		// opening new child window to load QA Page in it
 		function startExam() {
 			document.getElementById("startExamAnchorTagId").style.display = "none";
-			
-			var winFeaturesStr = "width=550,height=170,0,status=0,";
-			var winUrl = "/apt-web/startExamPage";
-			var winName = "Aptikraft Online Exam Application - QAPage";
-			var winObj = window.open(winUrl, winName, winFeaturesStr);
-			winObj.moveTo(0, 0);
-			winObj.resizeTo(screen.availWidth, screen.availHeight);
+			//var winObj = openChildWindow("startExamPage", "Aptikraft Online Exam Application - QAPage", "width=550,height=170,0,status=0");
 			return false;
 		}
+		// slight update to account for browsers not supporting e.which
+		function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
+		$(document).on("keydown", disableF5);
 	</script>
 </head>
 <body>
@@ -62,7 +60,8 @@
 			</ul>
 			<sec:authorize access="hasRole('ROLE_USER')">
 				<!-- open QAPage in new child window -->
-				<p><a id="startExamAnchorTagId" href="#" onclick="javascript:startExam();">Start Exam</a></p>
+				<%-- onclick="javascript:startExam();" --%>
+				<p><a id="startExamAnchorTagId" href="startExamPage" >Start Exam</a></p>
 			</sec:authorize>	
 		</div>
 		<div id="footer">

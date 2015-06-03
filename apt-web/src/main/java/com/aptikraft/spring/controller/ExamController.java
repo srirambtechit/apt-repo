@@ -60,21 +60,6 @@ public class ExamController {
 
 	ModelAndView model = new ModelAndView();
 
-	// One time login
-	// Authentication auth =
-	// SecurityContextHolder.getContext().getAuthentication();
-	// if (!(auth instanceof AnonymousAuthenticationToken)) {
-	// UserDetails userDetail = (UserDetails) auth.getPrincipal();
-	// String username = userDetail.getUsername();
-	// UserBO userBO = getUserService().findByUserName(username);
-	// if(userBO.isActiveLogin()) {
-	// model.addObject("error", userBO.getUsername() +
-	// " is already login, Please logout previous session");
-	// model.setViewName(ViewNameConstants.LOGIN);
-	// return model;
-	// }
-	// }
-
 	UserBO userBO = CurrentUser.getCurrentUserBO();
 
 	int userId = userBO.getId();

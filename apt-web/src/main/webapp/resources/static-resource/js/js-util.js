@@ -177,3 +177,10 @@ function createQuestionPopup(jsonObj, target) {
 	}
 	ul.appendTo(target);
 }
+
+function openChildWindow(winUrl, winName, winFeatureStr) {
+	var winObj = window.open("/apt-web/" + winUrl, winName, winFeatureStr);
+	winObj.moveTo(0, 0);
+	winObj.resizeTo(screen.availWidth, screen.availHeight);
+	return winObj;
+}

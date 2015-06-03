@@ -33,42 +33,36 @@ $(function () {
         return false;
     });
 
-    // on-submit confirmation
-    function saveDetailsMethod() {
-    	$.ajax({
-            async      : false,
-            cache      : false,
-            contentType: "application/json; charset=utf-8",
-            data       : JSON.stringify(globalJsonObj),
-            error      : function () {
-                // failed request; give feedback to user
-                $('#ajax-panel').html(JSON.stringify(globalJsonObj) + '<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
-            },
-            processData: false,
-            success    : function (data) {
-                if (data.status == 'OK') {
-                    alert('Congratulation!!! You have successfully completed exam.');
-                    // similar behavior as an HTTP redirect
-                    //window.location.replace("index.jsp");
-                    window.close();
-
-                    // similar behavior as clicking on a link
-                    // window.location.href = "http://stackoverflow.com";
-                } else {
-                    $('#ajax-panel').html('<p class="error"><strong>Oops!</strong> Failed : ' + data.status + ', ' + data.errorMessage + '</p>');
-                }
-            },
-            type       : 'POST',
-            // spring security expectes when csrf enabled, hence appending with http POST request
-            url        : 'saveAnswerDetailsFromJSON?${_csrf.parameterName}=${_csrf.token}'
-        });
-    }
-
-    $("#submitBtn").click(function () {
-        if (confirm("Are you sure want to submit the test?")) {
-        	saveDetailsMethod();
-        } else {
-            return false;
-        }
-    });
 });
+
+
+// on-submit confirmation
+function saveDetailsMethod(url) {
+	$.ajax({
+        async      : false,
+        cache      : false,
+        contentType: "application/json; charset=utf-8",
+        data       : JSON.stringify(globalJsonObj),
+        error      : function (err) {
+            // failed request; give feedback to user
+            $('#ajax-panel').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
+        },
+        processData: false,
+        success    : function (data) {
+            if (data.status == 'OK') {
+                alert('Congratulation!!! You have successfully completed exam.');
+                // similar behavior as an HTTP redirect
+                //window.location.replace("index.jsp");
+                window.close();
+
+                // similar behavior as clicking on a link
+                // window.location.href = "http://stackoverflow.com";
+            } else {
+                $('#ajax-panel').html('<p class="error"><strong>Oops!</strong> Failed : ' + data.status + ', ' + data.data[0].value + '</p>');
+            }
+        },
+        type       : 'POST',
+        // spring security expectes when csrf enabled, hence appending with http POST request
+        url        : url
+    });
+}

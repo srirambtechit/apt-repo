@@ -46,12 +46,6 @@ public class UserController {
 	return userRoleService;
     }
 
-    @RequestMapping(value = "/loginPage", method = RequestMethod.GET)
-    public String goToLoginPage(Model model) {
-	model.addAttribute("user", new UserBO());
-	return ViewNameConstants.LOGIN;
-    }
-
     @RequestMapping(value = "/registerPage", method = RequestMethod.GET)
     public String goToRegisterPage(Model model) {
 	model.addAttribute("user", new UserBO());

@@ -7,6 +7,9 @@ function validateLoginForm() {
 	var formError = $(".form-error");
 	var isValid = true;
 	formError.hide();
+	
+	// hide if already spring error/msg block is displayed
+	$(".error, .msg").hide();	
 
 	var inputs = $("form[name='loginForm']").find('input');
 
@@ -15,12 +18,12 @@ function validateLoginForm() {
 		isValid = false;
 		if (element.name == "username") {
 			if (element.value == "") {
-				formError.text("Username can't be balnk.");
+				formError.text("Username can't be blank.");
 				break;
 			}
 		} else if (element.name == "password") {
 			if (element.value == "") {
-				formError.text("Password can't be balnk.");
+				formError.text("Password can't be blank.");
 				break;
 			}
 		}
@@ -41,6 +44,9 @@ function validateRegistrationForm() {
 	var formError = $(".form-error");
 	var isValid = true;
 	formError.hide();
+	
+	// hide if already spring error/msg block is displayed
+	$(".error").hide();
 
 	var inputs = $("form[name='registerForm']").find('input');
 
@@ -52,7 +58,7 @@ function validateRegistrationForm() {
 		isValid = false;
 		if (element.name == "name") {
 			if (element.value == "") {
-				formError.text("Name can't be balnk.");
+				formError.text("Name can't be blank.");
 				break;
 			}
 			var re = /^[A-Za-z ]+$/;
@@ -62,19 +68,19 @@ function validateRegistrationForm() {
 			}
 		} else if (element.name == "rollNumber") {
 			if (element.value == "") {
-				formError.text("Roll number can't be balnk.");
+				formError.text("Roll number can't be blank.");
 				break;
 			}
 		} else if (element.name == "password") {
 			passwordValue = element.value;
 			if (element.value == "") {
-				formError.text("Password can't be balnk.");
+				formError.text("Password can't be blank.");
 				break;
 			}
 		} else if (element.name == "cpassword") {
 			confirmPasswordValue = element.value;
 			if (element.value == "") {
-				formError.text("Confirm password can't be balnk.");
+				formError.text("Confirm password can't be blank.");
 				break;
 			}
 		} else if (passwordValue != confirmPasswordValue) {
@@ -82,7 +88,7 @@ function validateRegistrationForm() {
 			break;
 		} else if (element.name == "email") {
 			if (element.value == "") {
-				formError.text("Email can't be balnk.");
+				formError.text("Email can't be blank.");
 				break;
 			}
 			var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
@@ -92,7 +98,7 @@ function validateRegistrationForm() {
 			}
 		} else if (element.name == "mobileNumber") {
 			if (element.value == "") {
-				formError.text("Mobile number can't be balnk.");
+				formError.text("Mobile number can't be blank.");
 				break;
 			}
 			var re = /^\d{10}$/;

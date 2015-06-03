@@ -1,5 +1,6 @@
 package com.aptikraft.spring.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -136,9 +137,14 @@ public class QuestionController {
 
 	    // Automatically logout once exam submitted.
 	    logout(request, response);
-	    jsonResponse = new JsonResponse("OK", "");
+	    jsonResponse = new JsonResponse("OK");
 	} else {
-	    jsonResponse = new JsonResponse("Not Found", "Problem Occurred");
+	    jsonResponse = new JsonResponse("Not Found");
+	    jsonResponse.setData(new ArrayList<Map<String, String>>());
+	    Map<String, String> map = new HashMap<>();
+	    map.put("name", "errorMessage");
+	    map.put("value", "Problem Occurred");
+	    jsonResponse.getData().add(map);
 	}
 	return jsonResponse;
     }

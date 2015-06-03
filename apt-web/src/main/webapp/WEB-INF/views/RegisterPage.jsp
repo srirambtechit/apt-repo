@@ -5,7 +5,9 @@
 <html>
 <head>
 	<title>Aptikraft Online Exam Application - RegisterPage</title>
+	<link href="resources/themes/smoothness/jquery-ui.css" rel="stylesheet">
 	<script src="resources/js/jquery-1.11.3.js"></script>
+	<script src="resources/js/jquery-ui.js"></script>
 	<script src="resources/js/form-validation.js"></script>
 	<link rel="stylesheet" href="resources/css/style.css" />
 	<style type="text/css">
@@ -14,7 +16,7 @@
 </head>
 <body>
 	<div id="page-container">
-		<div id="content-body">
+		<div id="content-body" class="ui-widget ui-widget-content ui-corner-all no-border">
 			<h4>Aptikraft Online Exam Application</h4>
 
 			<c:url var="addAction" value="/addNewUser"></c:url>
@@ -92,7 +94,7 @@
 				</p>
 				
 				<p>
-					<input type="submit" value="<spring:message text="Register User"/>" />				
+					<input type="submit" value="<spring:message text="Register User"/>" class=".ui-widget button" />				
 				</p>
 		
 			</form:form>
