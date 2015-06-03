@@ -14,3 +14,8 @@ available controller links:-
 
 	
 - InstructionPage should redirect to loginPage when user already logged out.	
+- Time out scenario in exam page need to be validated.
+
+Admin Module:-
+
+- Calculate exam results once all user completed test.

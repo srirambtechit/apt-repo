@@ -1,0 +1,255 @@
+1. A man bought a horse and a cart. If he sold the horse at 10 % loss and the cart
+at 20 % gain, he would not lose anything; but if he sold the horse at 5% loss
+and the cart at 5% gain, he would lose Rs. 10 in the bargain. The amount paid
+by him was Rs.
+_______ for the horse and Rs.________ for the cart.
+Ans: 30 days.
+
+
+1.It was calculated that 75 men could complete a piece of work in 20 days.
+When work was scheduled to commence, it was found necessary to send 25
+men to another project. How much longer will it take to complete the work?
+
+2. A student divided a number by 2/3 when he required to multiply by 3/2.
+Calculate the percentage of error in his result.
+
+3.A dishonest shopkeeper professes to sell pulses at the cost price, but he uses a
+false weight of 950gm. for a kg. His gain is ...%.
+
+4. A software engineer has the capability of thinking 100 lines of code in five
+minutes and can type 100 lines of code in 10 minutes. He takes a break for
+five minutes after every ten minutes. How many lines of codes will he
+complete typing after an hour?
+
+5. A man was engaged on a job for 30 days on the condition that he would get a
+wage of Rs. 10 for the day he works, but he have to pay a fine of Rs. 2 for
+each day of his absence. If he gets Rs. 216 at the end, he was absent for work
+for ... days.
+
+6. A contractor agreeing to finish a work in 150 days, employed 75 men each
+working 8 hours daily. After 90 days, only 2/7 of the work was completed.
+Increasing the number of men by
+________ each working now for 10 hours
+daily, the work can be completed in time.
+
+7. what is a percent of b divided by b percent of a?
+(a) a (b) b  (c) 1  (d)  10  (d)  100
+
+
+8. A man bought a horse and a cart. If he sold the horse at 10 % loss and the cart
+at 20 % gain, he would not lose anything; but if he sold the horse at 5% loss
+and the cart at 5% gain, he would lose Rs. 10 in the bargain. The amount paid
+by him was Rs.
+_______ for the horse and Rs.________ for the cart.
+
+
+9. A tennis marker is trying to put together a team of four players for a tennis
+tournament out of seven available. males - a, b and c; females – m, n, o and p.
+All players are of equal ability and there must be at least two males in the
+team. For a team of four, all players must be able to play with each other
+under the following restrictions:
+b should not play with m,
+c should not play with p, and
+a should not play with o.
+Which of the following statements must be false?
+1. b and p cannot be selected together
+2. c and o cannot be selected together
+3. c and n cannot be selected together.
+
+
+10. The number on the face opposite to the face carrying 1 is _______ .
+
+
+11. The number on the faces adjacent to the face marked 5 are_______ .
+
+
+12. Which of the following pairs does not correctly give the numbers on the
+opposite faces.
+(1) 6,5  (2) 4,1  (3) 1,3 (4) 4,2
+
+
+13. Five farmers have 7, 9, 11, 13 & 14 apple trees, respectively in their orchards.
+Last year, each of them discovered that every tree in their own orchard bore
+exactly the same number of apples. Further, if the third farmer gives one apple
+to the first, and the fifth gives three to each of the second and the fourth, they
+would all have exactly the same number of apples. What were the yields per
+tree in the orchards of the third and fourth farmers?
+
+
+14. Five boys were climbing a hill. J was following H. R was just ahead of G. K
+was between G & H. They were climbing up in a column. Who was the
+second? 15-18  John is undecided which of the four novels to buy. He is considering a spy
+thriller, a Murder mystery, a Gothic romance and a science fiction novel. The
+books are written by Rothko, Gorky, Burchfield and Hopper, not necessary in
+that order, and published by Heron, Piegon, Blueja and sparrow, not necessary
+in that order.
+1  (1) The book by Rothko is published by Sparrow.
+2 (2) The Spy thriller is published by Heron.
+(3) The science fiction novel is by Burchfield and is not published by Blueja.
+3 (4)The Gothic romance is by Hopper.
+4 
+
+15. Pigeon publishes ____________.
+
+
+16. The novel by Gorky ________________.
+
+
+17. John purchases books by the authors whose names come first and third in
+alphabetical order. He does not buy the books
+______.
+
+
+18. On the basis of the first paragraph and statement (2), (3) and (4) only, it is
+possible to deduce that
+1. Rothko wrote the murder mystery or the spy thriller
+2. Sparrow published the murder mystery or the spy thriller
+3. The book by Burchfield is published by Sparrow.
+
+
+19. If a light flashes every 6 seconds, how many times will it flash in ¾ of an
+hour?
+
+
+20. If point P is on line segment AB, then which of the following is always true?
+(1) AP = PB (2) AP > PB (3) PB > AP (4) AB > AP (5) AB > AP + PB
+
+
+21. All men are vertebrates. Some mammals are vertebrates. Which of the
+following conclusions drawn from the above statement is correct.
+All men are mammals
+All mammals are men
+Some vertebrates are mammals.
+None
+
+
+22. Which of the following statements drawn from the given statements are
+correct?
+Given:
+All watches sold in that shop are of high standard. Some of the HMT watches
+are sold in that shop.
+a) All watches of high standard were manufactured by HMT.
+b) Some of the HMT watches are of high standard.
+c) None of the HMT watches is of high standard.
+d) Some of the HMT watches of high standard are sold in that shop.
+
+
+23-27.
+1. Ashland is north of East Liverpool and west of Coshocton.
+2. Bowling green is north of Ashland and west of Fredericktown.
+3. Dover is south and east of Ashland.
+4. East Liverpool is north of Fredericktown and east of Dover.
+5. Fredericktown is north of Dover and west of Ashland.
+6. Coshocton is south of Fredericktown and west of Dover.
+
+
+23. Which of the towns mentioned is furthest of the north – west
+(a) Ashland
+(b) Bowling green
+(c) Coshocton
+(d) East Liverpool
+(e) Fredericktown
+
+
+24. Which of the following must be both north and east of Fredericktown?
+(a) Ashland
+(b) Coshocton
+(c) East Liverpool
+I a only
+II b only
+III c only
+IV a & b
+V a & c 
+
+25. Which of the following towns must be situated both south and west of at least
+one other town?
+A. Ashland only
+B. Ashland and Fredericktown
+C. Dover and Fredericktown
+D. Dover, Coshocton and Fredericktown
+E. Coshocton, Dover and East Liverpool.
+
+
+26. Which of the following statements, if true, would make the information in the
+numbered statements more specific?
+(a) Coshocton is north of Dover.
+(b) East Liverpool is north of Dover
+(c) Ashland is east of Bowling green.
+(d) Coshocton is east of Fredericktown
+(e) Bowling green is north of Fredericktown
+
+
+27. Which of the numbered statements gives information that can be deduced
+from one or more of the other statements?
+(A) 1
+(B) 2
+(C) 3
+(D) 4
+(E) 6
+
+
+28. Eight friends Harsha, Fakis, Balaji, Eswar, Dhinesh, Chandra, Geetha, and
+Ahmed are sitting in a circle facing the center. Balaji is sitting between Geetha
+and Dhinesh. Harsha is third to the left of Balaji and second to the right of
+Ahmed. Chandra is sitting between Ahmed and Geetha and Balaji and Eshwar
+are not sitting opposite to each other. Who is third to the left of Dhinesh?
+ 
+29. If every alternative letter starting from B of the English alphabet is written in
+small letter, rest all are written in capital letters, how the month “ September”
+be written.
+(1) SeptEMbEr
+(2) SEpTeMBEr
+(3) SeptembeR
+(4) SepteMber
+(5) None of the above.
+
+30. The length of the side of a square is represented by x+2. The length of the side
+of an equilateral triangle is 2x. If the square and the equilateral triangle have
+equal perimeter, then the value of x is _______.
+
+31. It takes Mr. Karthik y hours to complete typing a manuscript. After 2 hours,
+he was called away. What fractional part of the assignment was left
+incomplete?
+ 
+32. Which of the following is larger than 3/5?
+(1)  ½
+(2)  39/50
+(3)  7/25
+(4) 3/10
+(5) 59/100
+
+
+33. The number that does not have a reciprocal is ____________.
+
+
+34. There are 3 persons Sudhir, Arvind, and Gauri. Sudhir lent cars to Arvind and Gauri as many as they had already.
+After some time Arvind gave as many cars to Sudhir and Gauri as many as they have. After sometime Gauri did the same
+thing. At the end of this transaction each one of them had 24. Find the cars each originally had.
+
+
+35. A man bought a horse and a cart. If he sold the horse at 10 % loss and the cart
+at 20 % gain, he would not lose anything; but if he sold the horse at 5% loss
+and the cart at 5% gain, he would lose Rs. 10 in the bargain. The amount paid
+by him was Rs.
+_______ for the horse and Rs.________ for the cart.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

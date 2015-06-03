@@ -234,7 +234,7 @@ public class QuestionController {
 	    int questionCount = examBO.getNoOfQuestion();
 	    Collections.shuffle(questionBOs, new Random(questionCount));
 	    if (questionBOs.size() > questionCount) {
-		questionBOs = questionBOs.subList(0, questionCount + 1);
+		questionBOs = questionBOs.subList(0, questionCount);
 	    }
 	}
 	return questionBOs;
