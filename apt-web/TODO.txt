@@ -11,3 +11,6 @@ available controller links:-
 	- getExamDetailsInJSON
 	- saveAnswerDetailsFromJSON
 	- addNewUser
+
+	
+- InstructionPage should redirect to loginPage when user already logged out.	

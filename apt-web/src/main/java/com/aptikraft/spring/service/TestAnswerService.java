@@ -18,4 +18,6 @@ public interface TestAnswerService {
 
     public List<TestAnswerBO> fetchTestAnswerByUserId(int userId);
 
+    public void addBulkTestAnswer(List<TestAnswerBO> testAnswerBOs);
+
 }

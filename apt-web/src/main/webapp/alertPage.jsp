@@ -10,7 +10,7 @@
 <body>
 	<div id="page-container">
 		<div id="content-body">
-			<h4>Aptikraft Online Exam Application - <span style="color: red;">Be causious</span></h4>
+			<h4>Aptikraft Online Exam Application - <span style="color: red;">Be cautious</span></h4>
 			<ul>
 				<li>After login, this page should not undergo any of the below circumstances</li>
 				<li>Don't click back button</li>

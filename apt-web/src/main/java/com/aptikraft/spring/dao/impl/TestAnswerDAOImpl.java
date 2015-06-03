@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.StatelessSession;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +27,23 @@ public class TestAnswerDAOImpl implements TestAnswerDAO {
 	Session session = this.sessionFactory.getCurrentSession();
 	session.persist(testAnswerDO);
 	logger.info("TestAnswerDO saved successfully, TestAnswerDO Details=" + testAnswerDO);
+    }
+
+    @Override
+    public void addBlukData(List<TestAnswerDO> testAnswerDOs) {
+	
+	StatelessSession session = this.sessionFactory.openStatelessSession();
+	
+	Transaction transaction = session.beginTransaction();
+	
+	for (int index = 0; index < testAnswerDOs.size();) {
+	    TestAnswerDO testAnswerDO = testAnswerDOs.get(index);
+	    session.insert(testAnswerDO);
+	    index++;
+	    logger.info("TestAnswerDO saved successfully, TestAnswerDO Details=" + testAnswerDO);
+	}
+	transaction.commit();
+	session.close();
     }
 
     @Override

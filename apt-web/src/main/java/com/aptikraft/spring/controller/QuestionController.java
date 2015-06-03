@@ -137,7 +137,7 @@ public class QuestionController {
 		    qaMap.put(q.getId(), q.getAnswer());
 		}
 	    }
-
+	    List<TestAnswerBO> testAnswerBOs = new ArrayList<>();
 	    for (Question question : examWrapper.getQuestionList()) {
 		// Persisting question and answer in DB
 		if (question != null) {
@@ -150,9 +150,12 @@ public class QuestionController {
 			    testAnswerBO.setWeightage(1.0f);
 			}
 		    }
-		    getTestAnswerService().addTestAnswer(testAnswerBO);
+		    testAnswerBOs.add(testAnswerBO);
+		    // getTestAnswerService().addTestAnswer(testAnswerBO);
 		}
 	    }
+	    // Adding all testAnswerBO in a single shot to improve performance
+	    getTestAnswerService().addBulkTestAnswer(testAnswerBOs);
 
 	    // Enabling active_login in DB to maintain one time login
 	    // throughout application life cycle.
