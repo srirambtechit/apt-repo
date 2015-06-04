@@ -13,6 +13,8 @@ public class TestAnswerBO implements Serializable {
 
     private String answer;
 
+    private float weightage;
+
     private QuestionBO question;
 
     private UserBO user;
@@ -34,6 +36,14 @@ public class TestAnswerBO implements Serializable {
 
     public void setAnswer(String answer) {
 	this.answer = answer;
+    }
+
+    public float getWeightage() {
+	return weightage;
+    }
+
+    public void setWeightage(float weightage) {
+	this.weightage = weightage;
     }
 
     public QuestionBO getQuestion() {

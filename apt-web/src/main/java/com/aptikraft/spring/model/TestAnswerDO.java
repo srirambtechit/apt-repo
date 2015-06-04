@@ -32,6 +32,9 @@ public class TestAnswerDO implements Serializable {
     @Column(nullable = true, length = 100)
     private String answer;
 
+    @Column(nullable = true, length = 10)
+    private float weightage;
+
     // bi-directional many-to-one association to Question
     @ManyToOne(cascade = { CascadeType.ALL })
     @JoinColumn(name = "question_id", nullable = false)
@@ -59,6 +62,14 @@ public class TestAnswerDO implements Serializable {
 
     public void setAnswer(String answer) {
 	this.answer = answer;
+    }
+
+    public float getWeightage() {
+	return weightage;
+    }
+
+    public void setWeightage(float weightage) {
+	this.weightage = weightage;
     }
 
     public QuestionDO getQuestionDO() {

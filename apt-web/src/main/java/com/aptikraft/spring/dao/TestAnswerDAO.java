@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.aptikraft.spring.model.TestAnswerDO;
 
-public interface TestAnswerDAO {
+public interface TestAnswerDAO extends HibernateBulkOperationSupport<TestAnswerDO> {
 
     public void addTestAnswer(TestAnswerDO testAnswerDO);
 

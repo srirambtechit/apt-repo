@@ -13,6 +13,21 @@
         <script src="resources/js/qa-page-onload.js"></script>
         <script src="resources/js/qa-page.js"></script>
         <link href="resources/css/style.css" rel="stylesheet">
+        <script type="text/javascript">
+        $(function(){
+        	// slight update to account for browsers not supporting e.which
+    		function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
+    		$(document).on("keydown", disableF5);
+    		
+        	$("#submitBtn").click(function () {
+                if (confirm("Are you sure want to submit the test?")) {
+                	saveDetailsMethod('saveAnswerDetailsFromJSON?<c:out value="${_csrf.parameterName}=${_csrf.token}" />');
+                } else {
+                    return false;
+                }
+            });
+        });
+        </script>
     </head>
     <body>
         <div id="apt-page-container" style="width: 1070px; margin: auto;">

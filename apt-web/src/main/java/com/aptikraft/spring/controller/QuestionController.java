@@ -1,5 +1,6 @@
 package com.aptikraft.spring.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -16,12 +17,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.aptikraft.common.utils.CurrentUser;
 import com.aptikraft.common.utils.ViewNameConstants;
@@ -90,8 +91,20 @@ public class QuestionController {
 
     // returns the ModelAttribute fooListWrapper with the view qa startExamPage
     @RequestMapping(value = { "/startExamPage" }, method = RequestMethod.GET)
-    public String getForm(Model model) {
-	return ViewNameConstants.EXAM;
+    public ModelAndView getForm() {
+	ModelAndView model = new ModelAndView();
+	try {
+	    // If user is not login, trying to access this startExamPage, no
+	    // user object will be bound with spring security for authentication
+	    // exception raised by Spring Security
+	    CurrentUser.getCurrentUserBO();
+	} catch (Exception e) {
+	    model.addObject("error", "Authentication failed. Login required!");
+	    model.setViewName(ViewNameConstants.LOGIN);
+	    return model;
+	}
+	model.setViewName(ViewNameConstants.EXAM);
+	return model;
     }
 
     @RequestMapping(value = "/getExamDetailsInJSON", method = RequestMethod.GET)
@@ -121,12 +134,40 @@ public class QuestionController {
     public @ResponseBody JsonResponse saveAnswerDetailsFromJSON(@RequestBody ExamWrapper examWrapper, HttpServletRequest request, HttpServletResponse response) {
 	System.out.println(examWrapper);
 	JsonResponse jsonResponse = null;
+
 	if (examWrapper != null && !examWrapper.getQuestionList().isEmpty()) {
+	    List<Question> questionList = examWrapper.getQuestionList();
+	    List<Integer> questionIds = new ArrayList<>();
+	    for (Question question : questionList) {
+		questionIds.add(question.getId());
+	    }
+
+	    Map<Integer, String> qaMap = new HashMap<>();
+	    List<QuestionBO> qaList = getQuestionService().listQuestionsByIds(questionIds);
+	    if (qaList != null && !qaList.isEmpty()) {
+		for (QuestionBO q : qaList) {
+		    qaMap.put(q.getId(), q.getAnswer());
+		}
+	    }
+	    List<TestAnswerBO> testAnswerBOs = new ArrayList<>();
 	    for (Question question : examWrapper.getQuestionList()) {
 		// Persisting question and answer in DB
-		TestAnswerBO testAnswerBO = prepareTestAnswerBO(question);
-		getTestAnswerService().addTestAnswer(testAnswerBO);
+		if (question != null) {
+		    TestAnswerBO testAnswerBO = prepareTestAnswerBO(question);
+
+		    // validating user entered answer with actual answer
+		    if (qaMap != null && !qaMap.isEmpty()) {
+			if (qaMap.get(question.getId()).equals(question.getAnswer())) {
+			    // by default for all correct answer, mark will be 1
+			    testAnswerBO.setWeightage(1.0f);
+			}
+		    }
+		    testAnswerBOs.add(testAnswerBO);
+		    // getTestAnswerService().addTestAnswer(testAnswerBO);
+		}
 	    }
+	    // Adding all testAnswerBO in a single shot to improve performance
+	    getTestAnswerService().addBulkTestAnswer(testAnswerBOs);
 
 	    // Enabling active_login in DB to maintain one time login
 	    // throughout application life cycle.
@@ -136,9 +177,14 @@ public class QuestionController {
 
 	    // Automatically logout once exam submitted.
 	    logout(request, response);
-	    jsonResponse = new JsonResponse("OK", "");
+	    jsonResponse = new JsonResponse("OK");
 	} else {
-	    jsonResponse = new JsonResponse("Not Found", "Problem Occurred");
+	    jsonResponse = new JsonResponse("Not Found");
+	    jsonResponse.setData(new ArrayList<Map<String, String>>());
+	    Map<String, String> map = new HashMap<>();
+	    map.put("name", "errorMessage");
+	    map.put("value", "Problem Occurred");
+	    jsonResponse.getData().add(map);
 	}
 	return jsonResponse;
     }
@@ -188,7 +234,7 @@ public class QuestionController {
 	    int questionCount = examBO.getNoOfQuestion();
 	    Collections.shuffle(questionBOs, new Random(questionCount));
 	    if (questionBOs.size() > questionCount) {
-		questionBOs = questionBOs.subList(0, questionCount + 1);
+		questionBOs = questionBOs.subList(0, questionCount);
 	    }
 	}
 	return questionBOs;

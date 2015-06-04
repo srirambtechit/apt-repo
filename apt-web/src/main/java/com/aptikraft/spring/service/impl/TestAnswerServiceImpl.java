@@ -1,6 +1,9 @@
 package com.aptikraft.spring.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,6 +72,46 @@ public class TestAnswerServiceImpl implements TestAnswerService {
     @Transactional
     public List<TestAnswerBO> fetchTestAnswerByUserId(int userId) {
 	return TestAnswerProvider.getTestAnswersFromDOToBO(this.testAnswerDAO.fetchTestAnswerByUserId(userId));
+    }
+
+    @Override
+    @Transactional
+    public void addBulkTestAnswer(List<TestAnswerBO> testAnswerBOs) {
+
+	List<TestAnswerDO> testAnswerDOs = new ArrayList<>();
+
+	if (testAnswerBOs != null && !testAnswerBOs.isEmpty()) {
+
+	    int userId = 0;
+	    if (testAnswerBOs.get(0) != null && testAnswerBOs.get(0).getUser() != null) {
+		userId = testAnswerBOs.get(0).getUser().getId();
+	    }
+	    UserDAO userDAO = ApplicationContextProvider.getBean(UserDAO.class);
+	    UserDO userDO = userDAO.getUserById(userId);
+
+	    List<Integer> questionIds = new ArrayList<>();
+
+	    for (TestAnswerBO testAnswerBO : testAnswerBOs) {
+		if (testAnswerBO != null && testAnswerBO.getQuestion() != null) {
+		    questionIds.add(testAnswerBO.getQuestion().getId());
+		}
+	    }
+
+	    QuestionDAO questionDAO = ApplicationContextProvider.getBean(QuestionDAO.class);
+	    List<QuestionDO> questionsByIds = questionDAO.listQuestionsByIds(questionIds);
+	    Map<Integer, QuestionDO> qMap = new HashMap<>();
+
+	    for (QuestionDO questionDO : questionsByIds) {
+		qMap.put(questionDO.getId(), questionDO);
+	    }
+	    for (TestAnswerBO testAnswerBO : testAnswerBOs) {
+		TestAnswerDO testAnswerDO = TestAnswerProvider.getTestAnswerFromBOToDO(testAnswerBO);
+		testAnswerDO.setQuestionDO(qMap.get(testAnswerBO.getQuestion().getId()));
+		testAnswerDO.setUserDO(userDO);
+		testAnswerDOs.add(testAnswerDO);
+	    }
+	}
+	this.testAnswerDAO.addBlukData(testAnswerDOs);
     }
 
 }
