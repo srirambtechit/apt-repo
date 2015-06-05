@@ -1,11 +1,3 @@
-1. A man bought a horse and a cart. If he sold the horse at 10 % loss and the cart
-at 20 % gain, he would not lose anything; but if he sold the horse at 5% loss
-and the cart at 5% gain, he would lose Rs. 10 in the bargain. The amount paid
-by him was Rs.
-_______ for the horse and Rs.________ for the cart.
-Ans: 30 days.
-
-
 1.It was calculated that 75 men could complete a piece of work in 20 days.
 When work was scheduled to commence, it was found necessary to send 25
 men to another project. How much longer will it take to complete the work?
@@ -41,10 +33,10 @@ at 20 % gain, he would not lose anything; but if he sold the horse at 5% loss
 and the cart at 5% gain, he would lose Rs. 10 in the bargain. The amount paid
 by him was Rs.
 _______ for the horse and Rs.________ for the cart.
-
+Ans: 30 days.
 
 9. A tennis marker is trying to put together a team of four players for a tennis
-tournament out of seven available. males - a, b and c; females – m, n, o and p.
+tournament out of seven available. males - a, b and c; females â€“ m, n, o and p.
 All players are of equal ability and there must be at least two males in the
 team. For a team of four, all players must be able to play with each other
 under the following restrictions:
@@ -107,7 +99,7 @@ possible to deduce that
 3. The book by Burchfield is published by Sparrow.
 
 
-19. If a light flashes every 6 seconds, how many times will it flash in ¾ of an
+19. If a light flashes every 6 seconds, how many times will it flash in Â¾ of an
 hour?
 
 
@@ -143,7 +135,7 @@ d) Some of the HMT watches of high standard are sold in that shop.
 6. Coshocton is south of Fredericktown and west of Dover.
 
 
-23. Which of the towns mentioned is furthest of the north – west
+23. Which of the towns mentioned is furthest of the north â€“ west
 (a) Ashland
 (b) Bowling green
 (c) Coshocton
@@ -195,7 +187,7 @@ Ahmed. Chandra is sitting between Ahmed and Geetha and Balaji and Eshwar
 are not sitting opposite to each other. Who is third to the left of Dhinesh?
  
 29. If every alternative letter starting from B of the English alphabet is written in
-small letter, rest all are written in capital letters, how the month “ September”
+small letter, rest all are written in capital letters, how the month â€œ Septemberâ€�
 be written.
 (1) SeptEMbEr
 (2) SEpTeMBEr
@@ -212,7 +204,7 @@ he was called away. What fractional part of the assignment was left
 incomplete?
  
 32. Which of the following is larger than 3/5?
-(1)  ½
+(1)  Â½
 (2)  39/50
 (3)  7/25
 (4) 3/10
@@ -233,23 +225,55 @@ and the cart at 5% gain, he would lose Rs. 10 in the bargain. The amount paid
 by him was Rs.
 _______ for the horse and Rs.________ for the cart.
 
+SQL Queries:-
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values 
+('A man bought a horse and a cart. If he sold the horse at 10 % loss and the cart at 20 % gain, he would not lose anything; but if he sold the horse at 5% loss and  the cart at 5% gain, he would lose Rs. 10 in the bargain. The amount paid by him was Rs. _______ for the horse and Rs.________ for the cart.', '1200, 800', '1100, 1000', '100, 150', '1800, 2000', 'None of the above', 'CHOICE_E');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('It was calculated that 75 men could complete a piece of work in 20 days. When work was scheduled to commence, it was found necessary to send 25 men to another  project. How much longer will it take to complete the work?', '21 days', '30 days', '28 days', '32 days', 'None of the above', 'CHOICE_B');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('A student divided a number by 2/3 when he required to multiply by 3/2. Calculate the percentage of error in his result.', '12', '10', '30', '18', 'None of the above', 'CHOICE_E');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('A dishonest shopkeeper professes to sell pulses at the cost price, but he uses a false weight of 950gm. for a kg. His gain is ...%.', '25.00%', '33.33%', '27.00%', '48.50%', '12.25%', 'CHOICE_D');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('A software engineer has the capability of thinking 100 lines of code in five minutes and can type 100 lines of code in 10 minutes. He takes a break for five minutes after every ten minutes. How many lines of codes will he  complete typing after an hour?', '280 lines', '100 lines', '250 lines', '200 lines', '210 lines', 'CHOICE_C');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('A man was engaged on a job for 30 days on the condition that he would get a wage of Rs. 10 for the day he works, but he have to pay a fine of Rs. 2 for each day of his absence. If he gets Rs. 216 at the end, he was absent for work for ... days.', '5 days', '2 days', '10 days', '4 days', '3 days', 'CHOICE_A');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('A contractor agreeing to finish a work in 150 days, employed 75 men each working 8 hours daily. After 90 days, only 2/7 of the work was completed. Increasing the number of men by ________ each working now for 10 hours daily, the work can be completed in time.', '10', '30', '20', '25', '50', 'CHOICE_D');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('If every alternative letter starting from B of the English alphabet is written in small letter, rest all are written in capital letters, how the month September be written.', 'SeptEMbEr', 'SEpTeMBEr', 'SeptembeR', 'SepteMber', 'None of the above.', 'CHOICE_A');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('Eight friends Harsha, Fakis, Balaji, Eswar, Dhinesh, Chandra, Geetha, and Ahmed are sitting in a circle facing the center. Balaji is sitting between Geetha and Dhinesh. Harsha is third to the left of Balaji and second to the right of Ahmed. Chandra is sitting between Ahmed and Geetha and Balaji and Eshwar are not sitting opposite to each other. Who is third to the left of Dhinesh?', 'Harsha', 'Chandra', 'Ahmed', 'Geetha', 'Balaji', 'CHOICE_C');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('All men are vertebrates. Some mammals are vertebrates. Which of the following conclusions drawn from the above statement is correct.', 'All men are mammals', 'All mammals are men', 'Some vertebrates are mammals.', 'None', null, 'CHOICE_C');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('If point P is on line segment AB, then which of the following is always true?', 'AP = PB', 'AP > PB', 'PB > AP', 'AB > AP', 'AB > AP + PB', 'CHOICE_E');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('A tennis marker is trying to put together a team of four players for a tennis tournament out of seven available. males - a, b and c; females â€“ m, n, o and p. All players are of equal ability and there must be at least two males in the team. For a team of four, all players must be able to play with each other under the following restrictions:
+b should not play with m,
+c should not play with p, and
+a should not play with o.
+Which of the following statements must be false?', 'b and p cannot be selected together', 'c and o cannot be selected together', ' c and n cannot be selected together.', null, null, 'CHOICE_A');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('Which of the following statements, if true, would make the information in the numbered statements more specific?
+(a) Coshocton is north of Dover.
+(b) East Liverpool is north of Dover
+(c) Ashland is east of Bowling green.
+(d) Coshocton is east of Fredericktown
+(e) Bowling green is north of Fredericktown', 'a', 'b', 'c', 'd', 'e', 'CHOICE_D');
 
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('Which of the following towns must be situated both south and west of at least one other town?
+A. Ashland only
+B. Ashland and Fredericktown
+C. Dover and Fredericktown
+D. Dover, Coshocton and Fredericktown
+E. Coshocton, Dover and East Liverpool.', 'A', 'B', 'C', 'D', 'E', 'CHOICE_E');
 
-
-
-
-
-
-
+insert into question (question, choice_a, choice_b, choice_c, choice_d, choice_e, answer) values ('Which of the following statements drawn from the given statements are correct?
+Given:
+All watches sold in that shop are of high standard. Some of the HMT watches
+are sold in that shop.
+a) All watches of high standard were manufactured by HMT.
+b) Some of the HMT watches are of high standard.
+c) None of the HMT watches is of high standard.
+d) Some of the HMT watches of high standard are sold in that shop.', 'a', 'b', 'c', 'd', 'None of the above', 'CHOICE_B');

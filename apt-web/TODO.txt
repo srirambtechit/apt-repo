@@ -20,3 +20,4 @@ available controller links:-
 Admin Module:-
 
 - Calculate exam results once all user completed test.
+- Ask user to enable popup blocker in browser

@@ -57,8 +57,8 @@
 	</script>
 </head>
 <body onload='document.loginForm.username.focus();'>
-	<div id="page-container">
-		<div id="content-body" class="ui-widget ui-widget-content ui-corner-all no-border">
+	<div id="page-container" class="ui-widget ui-widget-content ui-corner-all no-border">
+		<div id="content-body">
 			<h4>Aptikraft Online Exam Application</h4>
 		
 			<c:if test="${not empty error}">
