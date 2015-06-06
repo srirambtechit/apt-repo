@@ -150,8 +150,7 @@ function newMiddleRightEdgeCell(data) {
 function createQuestionPopup(jsonObj, target) {
 	$("<p/>", {
 		"class" : "para-question"
-	}).text(jsonObj.question + "; ans = " + jsonObj.answer).appendTo(
-			target);
+	}).text(jsonObj.question).appendTo(target);
 
 	var ul = $("<ul/>", {
 		"class" : "choices-list"

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -214,15 +215,26 @@ public class QuestionController {
 	Question question = new Question();
 	question.setId(questionBO.getId());
 	question.setQuestion(questionBO.getQuestion());
+
 	// Don't set answer value as
 	// it appear as default selected value in Web Form
 	// question.setAnswer(questionBO.getAnswer());
-	Map<String, String> choices = new HashMap<>();
-	choices.put("CHOICE_A", questionBO.getChoiceA());
-	choices.put("CHOICE_B", questionBO.getChoiceB());
-	choices.put("CHOICE_C", questionBO.getChoiceC());
-	choices.put("CHOICE_D", questionBO.getChoiceD());
-	choices.put("CHOICE_E", questionBO.getChoiceE());
+	Map<String, String> choices = new TreeMap<>();
+	if (questionBO.getChoiceA() != null && !questionBO.getChoiceA().isEmpty()) {
+	    choices.put("CHOICE_A", questionBO.getChoiceA());
+	}
+	if (questionBO.getChoiceB() != null && !questionBO.getChoiceB().isEmpty()) {
+	    choices.put("CHOICE_B", questionBO.getChoiceB());
+	}
+	if (questionBO.getChoiceC() != null && !questionBO.getChoiceC().isEmpty()) {
+	    choices.put("CHOICE_C", questionBO.getChoiceC());
+	}
+	if (questionBO.getChoiceD() != null && !questionBO.getChoiceD().isEmpty()) {
+	    choices.put("CHOICE_D", questionBO.getChoiceD());
+	}
+	if (questionBO.getChoiceE() != null && !questionBO.getChoiceE().isEmpty()) {
+	    choices.put("CHOICE_E", questionBO.getChoiceE());
+	}
 	question.setChoiceMap(choices);
 	return question;
     }
@@ -248,4 +260,5 @@ public class QuestionController {
 	}
 	return null;
     }
+
 }

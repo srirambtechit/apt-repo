@@ -34,13 +34,13 @@
 							var url = "";
 							if(data.data[0].name == "url") {
 								url = data.data[0].value + '?<c:out value="${_csrf.parameterName}=${_csrf.token}"/>';
+								url = data.data[0].value;
 							}
-							// Moving the current window login page to alertPage to inform user.
-							window.location.replace("alertPage.jsp");
-							
 							// Opening up chhild window to start examiner session.
-							var winObj = openChildWindow(url, "Aptikraft Online Exam Application", "width=550,height=170,0,status=0,location=no,resizable=no,toolbar=no");
+							// var winObj = openChildWindow(url, "Aptikraft Online Exam Application", "width=550,height=170,0,status=0,location=no,resizable=no,toolbar=no");
 							// winObj.locationbar.visible = false;
+							
+							window.location.replace(url);
 						} else if( data.status == "error") {
 							if(data.data[0].name == "errorMessage") {
 								$(".form-error").text(data.data[0].value).show();

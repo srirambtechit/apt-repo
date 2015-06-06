@@ -9,6 +9,8 @@ package com.aptikraft.common.utils;
 public interface ViewNameConstants {
 
     String REDIRECT_TO_INDEX = "redirect:/index.jsp";
+    
+    String ENTRY = "EntryPage";
 
     String ADMIN = "AdminPage";
 

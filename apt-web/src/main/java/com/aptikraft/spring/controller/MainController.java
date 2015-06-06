@@ -18,8 +18,8 @@ public class MainController {
     @RequestMapping(value = { "/" }, method = RequestMethod.GET)
     public ModelAndView defaultPage() {
 	ModelAndView model = new ModelAndView();
-	model.addObject("title", "Aptikraft Online Exam Application - LoginPage");
-	model.setViewName(ViewNameConstants.LOGIN);
+	model.addObject("title", "Aptikraft Online Exam Application - HomePage");
+	model.setViewName(ViewNameConstants.ENTRY);
 	return model;
     }
 

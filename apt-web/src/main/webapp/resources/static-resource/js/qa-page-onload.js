@@ -47,7 +47,7 @@ $.ajax({
        	   var $this = $(this).html(event.strftime(str));
         	 }).on('finish.countdown', function(event){
         		 // automatically save details when given time elapsed.
-        		 saveDetailsMethod();
+        		 saveDetailsMethod('saveAnswerDetailsFromJSON?'+csrfToken);
         	 });
     },
     type      : 'GET',

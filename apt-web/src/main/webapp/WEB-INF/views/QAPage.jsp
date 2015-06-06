@@ -14,6 +14,9 @@
         <script src="resources/js/qa-page.js"></script>
         <link href="resources/css/style.css" rel="stylesheet">
         <script type="text/javascript">
+        <%-- Globally declared variable csrfToken for spring mvc POST request --%>
+        var csrfToken = '<c:out value="${_csrf.parameterName}=${_csrf.token}" />';
+        	
         $(function(){
         	// slight update to account for browsers not supporting e.which
     		function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
@@ -21,11 +24,14 @@
     		
         	$("#submitBtn").click(function () {
                 if (confirm("Are you sure want to submit the test?")) {
-                	saveDetailsMethod('saveAnswerDetailsFromJSON?<c:out value="${_csrf.parameterName}=${_csrf.token}" />');
+                	saveDetailsMethod('saveAnswerDetailsFromJSON?'+csrfToken);
                 } else {
                     return false;
                 }
             });
+        	
+        	// to restrict user to refersh loaded page
+        	window.location.replace("startExamPage#");
         });
         </script>
     </head>
