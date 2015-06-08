@@ -78,14 +78,13 @@ public class ExamController {
 	    model.setViewName(ViewNameConstants.LOGIN);
 	} else {
 	    model.setViewName(ViewNameConstants.INSTRUCTIONS);
+
+	    // Enabling active_login in DB to maintain one time login throughout
+	    // application life cycle. Updating active login status once pass
+	    // through above scenarios
+	    userBO.setActiveLogin(true);
+	    getUserService().updateUser(userBO);
 	}
-
-	// Enabling active_login in DB to maintain one time login throughout
-	// application life cycle. Updating active login status once pass
-	// through above scenarios
-	userBO.setActiveLogin(true);
-	getUserService().updateUser(userBO);
-
 	return model;
     }
 

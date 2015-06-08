@@ -92,17 +92,31 @@ public class QuestionController {
 
     // returns the ModelAttribute fooListWrapper with the view qa startExamPage
     @RequestMapping(value = { "/startExamPage" }, method = RequestMethod.GET)
-    public ModelAndView getForm() {
+    public ModelAndView getForm(HttpServletRequest request, HttpServletResponse response) {
 	ModelAndView model = new ModelAndView();
+	UserBO userBO = null;
 	try {
 	    // If user is not login, trying to access this startExamPage, no
 	    // user object will be bound with spring security for authentication
 	    // exception raised by Spring Security
-	    CurrentUser.getCurrentUserBO();
+	    userBO = CurrentUser.getCurrentUserBO();
 	} catch (Exception e) {
 	    model.addObject("error", "Authentication failed. Login required!");
 	    model.setViewName(ViewNameConstants.LOGIN);
 	    return model;
+	}
+	// If the user already taken exam, restricting here to say You have
+	// already taken exam
+	if (userBO != null) {
+	    int userId = userBO.getId();
+	    List<TestAnswerBO> testAnswerList = getTestAnswerService().fetchTestAnswerByUserId(userId);
+	    if (testAnswerList != null && !testAnswerList.isEmpty()) {
+		// User is already taken the exam
+		model.addObject("msg", userBO.getUsername() + " is already taken exam");
+		model.setViewName(ViewNameConstants.LOGIN);
+		logout(request, response);
+		return model;
+	    }
 	}
 	model.setViewName(ViewNameConstants.EXAM);
 	return model;

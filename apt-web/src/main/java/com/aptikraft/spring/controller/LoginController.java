@@ -27,9 +27,9 @@ public class LoginController {
 
     /**
      * Spring security login validation and generate JSON response for either
-     * successful login or failure login
-     * when clicking login form, action will be /j_spring_security_check
-     * when clicking success form, action will be j_spring_security_logout
+     * successful login or failure login when clicking login form, action will
+     * be /j_spring_security_check when clicking success form, action will be
+     * j_spring_security_logout
      * 
      * @param error
      * @param logout
@@ -66,10 +66,9 @@ public class LoginController {
     }
 
     /**
-     * Getting login page as response by GET request.
-     * Spring security for logout operation.
-     * when clicking logout in any page which logout operation, action will be
-     * j_spring_security_logout
+     * Getting login page as response by GET request. Spring security for logout
+     * operation. when clicking logout in any page which logout operation,
+     * action will be j_spring_security_logout
      * 
      * @param error
      * @param logout
