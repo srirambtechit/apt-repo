@@ -61,7 +61,7 @@ function validateRegistrationForm() {
 				formError.text("Name can't be blank.");
 				break;
 			}
-			var re = /^[A-Za-z ]+$/;
+			var re = /^[A-Za-z]+$/;
 			if (!re.test(element.value)) {
 				formError.text("Name is invalid and mustn't contain number, blank, space or any special characters");
 				break;
@@ -69,6 +69,11 @@ function validateRegistrationForm() {
 		} else if (element.name == "rollNumber") {
 			if (element.value == "") {
 				formError.text("Roll number can't be blank.");
+				break;
+			}
+			var re = /^[0-9]+$/;
+			if (!re.test(element.value)) {
+				formError.text("Roll number is invalid and mustn't contain character, blank, space or any special characters");
 				break;
 			}
 		} else if (element.name == "password") {
