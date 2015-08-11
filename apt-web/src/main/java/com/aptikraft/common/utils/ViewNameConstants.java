@@ -14,7 +14,7 @@ public interface ViewNameConstants {
 
     String ADMIN = "AdminPage";
 
-    String LOGIN = "LoginPage";
+    String LOGIN = "UILoginPage";
 
     String USER = "RegisterPage";
 
